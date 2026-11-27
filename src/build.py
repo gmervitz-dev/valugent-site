@@ -50,16 +50,16 @@ CSS = (SRC / "base.css").read_text() + """
 /* the cursor: a small node of light with a ring that follows it (mouse and trackpad only) */
 .cur-dot, .cur-ring { position: fixed; left: 0; top: 0; pointer-events: none; z-index: 9999; border-radius: 50%;
   opacity: 0; transition: opacity 0.2s; will-change: transform; }
-.cur-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; background: #eef1f5;
-  box-shadow: 0 0 10px 2px rgba(156, 196, 255, 0.9); }
-.cur-ring { width: 34px; height: 34px; margin: -17px 0 0 -17px; border: 1px solid rgba(156, 196, 255, 0.55);
+.cur-dot { width: 10px; height: 10px; margin: -5px 0 0 -5px; background: #ffffff;
+  box-shadow: 0 0 12px 4px rgba(156, 196, 255, 0.95), 0 0 28px 8px rgba(156, 196, 255, 0.35); }
+.cur-ring { width: 44px; height: 44px; margin: -22px 0 0 -22px; border: 1.5px solid rgba(190, 215, 255, 0.85);
   transition: opacity 0.2s, width 0.25s, height 0.25s, margin 0.25s, border-color 0.25s, background 0.25s; }
 .has-cursor .cur-dot, .has-cursor .cur-ring { opacity: 1; }
 .has-cursor, .has-cursor * , .has-cursor .hero { cursor: none !important; }
-.cur-ring.link { width: 52px; height: 52px; margin: -26px 0 0 -26px; background: rgba(156, 196, 255, 0.08);
+.cur-ring.link { width: 60px; height: 60px; margin: -30px 0 0 -30px; background: rgba(156, 196, 255, 0.14);
   border-color: rgba(156, 196, 255, 0.9); }
-.cur-ring.brain { width: 64px; height: 64px; margin: -32px 0 0 -32px; border-style: dashed;
-  border-color: rgba(156, 196, 255, 0.7); }
+.cur-ring.brain { width: 72px; height: 72px; margin: -36px 0 0 -36px; border-style: dashed; border-width: 2px;
+  border-color: rgba(190, 215, 255, 0.9); }
 .cur-ring.down { width: 22px; height: 22px; margin: -11px 0 0 -11px; background: rgba(156, 196, 255, 0.18); }
 /* the principles grid: five across on wide screens, and no filled gap where a row is short */
 .principles ol { background: none; border: none; gap: 0; }
