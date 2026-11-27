@@ -353,6 +353,7 @@ def page(path, title, desc, body, *, schema, here="", home=False):
 <link rel="canonical" href="{url}">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#05070b">
+<meta name="msvalidate.01" content="90FEECC1FCB39FCA6ADB86096AE92DDA">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
