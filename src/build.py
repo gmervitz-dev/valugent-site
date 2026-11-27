@@ -180,7 +180,7 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
 ORG = {"@type": "Organization", "@id": f"{SITE}/#org", "name": "Valugent", "url": f"{SITE}/",
        "logo": f"{SITE}/apple-touch-icon.png", "email": EMAIL,
        "description": "Valugent is an AI agent factory building values-driven, trustworthy AI agents.",
-       "slogan": "Values-driven AI agents"}
+       "slogan": "Values-driven AI agents", "sameAs": ["https://www.linkedin.com/company/valugent/"]}
 
 
 def ld(*items):
