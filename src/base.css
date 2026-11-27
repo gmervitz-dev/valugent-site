@@ -22,7 +22,7 @@ a:focus-visible { outline: 2px solid var(--glow); outline-offset: 4px; }
   display: flex; justify-content: space-between; align-items: center; gap: 16px;
   padding: 26px clamp(16px, 5vw, 64px);
 }
-.mark { display: block; width: clamp(170px, 24vw, 300px); height: auto; color: var(--ink); }
+.mark { display: block; width: clamp(179px, 25.3vw, 316px); height: auto; color: var(--ink); }
 .status {
   font-family: var(--display); font-weight: 500; font-stretch: 110%;
   letter-spacing: 0.24em; font-size: 12px; text-transform: uppercase; color: var(--dim);
