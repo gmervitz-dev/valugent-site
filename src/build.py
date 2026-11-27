@@ -278,9 +278,12 @@ FX_JS = r"""<script>
     while (walk.nextNode()) nodes.push([walk.currentNode, walk.currentNode.nodeValue]);
     if (!nodes.length) return;
     h.setAttribute("aria-label", h.textContent); h.style.minHeight = `${h.offsetHeight}px`;
-    const start = performance.now(), dur = 900;
+    const start = performance.now(), dur = 1900;
+    let shown = 0;
     (function tick(now) {
       const t = (now - start) / dur;
+      if (t < 1 && now - shown < 70) return requestAnimationFrame(tick);   // a steady flicker, not a blur
+      shown = now;
       nodes.forEach(([n, text]) => {
         n.nodeValue = [...text].map((c, i) => c === " " || t > 0.25 + 0.75 * i / text.length ? c
           : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]).join("");
@@ -289,7 +292,7 @@ FX_JS = r"""<script>
       else { nodes.forEach(([n, text]) => { n.nodeValue = text; }); h.removeAttribute("aria-label"); h.style.minHeight = ""; }
     })(start);
   }
-  const heads = document.querySelectorAll(".about h2, .principles h2, .faq h2, .prose h2, .page-head h1, .part h2");
+  const heads = document.querySelectorAll(".about h2, .principles h2, .faq h2, .page-head h1");
   const hio = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { hio.unobserve(e.target); setTimeout(() => decode(e.target), 150); }
   }), { rootMargin: "0px 0px -10% 0px" });
