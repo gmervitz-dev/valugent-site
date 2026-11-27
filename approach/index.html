@@ -220,6 +220,12 @@ footer a:hover, footer a:focus-visible { border-color: var(--ink); }
   letter-spacing: 0.18em; font-size: 13px; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--glow);
   padding-bottom: 4px; }
 .more:hover, .more:focus-visible { color: var(--glow); }
+.cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; }
+.cta span { color: var(--dim); font-size: 15px; max-width: 26em; }
+.btn { display: inline-block; font-family: var(--display); font-weight: 700; font-stretch: 115%; text-transform: uppercase;
+  letter-spacing: 0.16em; font-size: 13px; color: #05070b; background: var(--ink); text-decoration: none;
+  padding: 15px 26px; border-radius: 2px; transition: background 0.2s, box-shadow 0.2s; }
+.btn:hover, .btn:focus-visible { background: var(--glow); box-shadow: 0 0 28px rgba(156,196,255,0.35); }
 .next { padding: clamp(48px, 7vw, 96px) clamp(16px, 5vw, 64px); border-top: 1px solid var(--line); background: var(--deep);
   display: flex; flex-wrap: wrap; gap: 16px 48px; align-items: baseline; justify-content: space-between; }
 .next p { font-family: var(--display); font-weight: 800; font-stretch: 120%; text-transform: uppercase;
@@ -229,15 +235,32 @@ footer a:hover, footer a:focus-visible { border-color: var(--ink); }
   opacity: 0; transition: opacity 0.2s; will-change: transform; }
 .cur-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; background: #eef1f5;
   box-shadow: 0 0 10px 2px rgba(156, 196, 255, 0.9); }
-.cur-ring { width: 34px; height: 34px; margin: -17px 0 0 -17px; border: 1px solid rgba(156, 196, 255, 0.55);
+.cur-ring { width: 24px; height: 24px; margin: -12px 0 0 -12px; border: 1px solid rgba(156, 196, 255, 0.55);
   transition: opacity 0.2s, width 0.25s, height 0.25s, margin 0.25s, border-color 0.25s, background 0.25s; }
 .has-cursor .cur-dot, .has-cursor .cur-ring { opacity: 1; }
 .has-cursor, .has-cursor * , .has-cursor .hero { cursor: none !important; }
-.cur-ring.link { width: 52px; height: 52px; margin: -26px 0 0 -26px; background: rgba(156, 196, 255, 0.08);
+.cur-ring.link { width: 38px; height: 38px; margin: -19px 0 0 -19px; background: rgba(156, 196, 255, 0.08);
   border-color: rgba(156, 196, 255, 0.9); }
-.cur-ring.brain { width: 64px; height: 64px; margin: -32px 0 0 -32px; border-style: dashed;
+.cur-ring.brain { width: 44px; height: 44px; margin: -22px 0 0 -22px; border-style: dashed;
   border-color: rgba(156, 196, 255, 0.7); }
-.cur-ring.down { width: 22px; height: 22px; margin: -11px 0 0 -11px; background: rgba(156, 196, 255, 0.18); }
+.cur-ring.down { width: 16px; height: 16px; margin: -8px 0 0 -8px; background: rgba(156, 196, 255, 0.18); }
+/* it fires like a neuron: the dot flashes now and then, a click sends out a burst, and moving leaves faint sparks */
+.has-cursor .cur-dot { animation: cur-fire 2.6s infinite; }
+@keyframes cur-fire {
+  0%, 82%, 100% { box-shadow: 0 0 10px 2px rgba(156, 196, 255, 0.9); background: #eef1f5; }
+  86% { box-shadow: 0 0 22px 7px rgba(190, 220, 255, 1), 0 0 44px 14px rgba(156, 196, 255, 0.45); background: #fff; }
+  90% { box-shadow: 0 0 8px 1px rgba(156, 196, 255, 0.7); }
+  93% { box-shadow: 0 0 18px 5px rgba(190, 220, 255, 0.95); background: #fff; }
+}
+.cur-burst, .cur-spark { position: fixed; left: 0; top: 0; pointer-events: none; z-index: 9998; }
+.cur-burst i { position: absolute; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%;
+  border: 1.5px solid rgba(190, 220, 255, 0.95); box-shadow: 0 0 14px rgba(156, 196, 255, 0.8);
+  animation: cur-burst 0.6s ease-out forwards; }
+@keyframes cur-burst { from { transform: scale(0.4); opacity: 1; } to { transform: scale(4.2); opacity: 0; } }
+.cur-spark i { position: absolute; width: 3px; height: 3px; margin: -1.5px 0 0 -1.5px; border-radius: 50%;
+  background: #dce9ff; box-shadow: 0 0 6px 1px rgba(156, 196, 255, 0.9); animation: cur-spark 0.7s ease-out forwards; }
+@keyframes cur-spark { to { transform: translate(var(--dx), var(--dy)) scale(0.2); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .has-cursor .cur-dot { animation: none; } }
 /* the principles grid: five across on wide screens, and no filled gap where a row is short */
 .principles ol { background: none; border: none; gap: 0; }
 .principles li { border: 1px solid var(--line); margin: 0 -1px -1px 0; }
@@ -295,15 +318,31 @@ footer a:hover, footer a:focus-visible { border-color: var(--ink); }
   addEventListener("pointermove", e => {
     if (e.pointerType !== "mouse") return;
     x = e.clientX; y = e.clientY;
-    if (!shown) { shown = true; rx = x; ry = y; document.documentElement.classList.add("has-cursor"); }
+    if (!shown) { shown = true; rx = x; ry = y; }
+    document.documentElement.classList.add("has-cursor");   // back on as soon as the mouse returns to the page
     const t = e.target;
     ring.classList.toggle("link", !!t.closest("a, button"));
     ring.classList.toggle("brain", !t.closest("a, button") && !!t.closest(".hero"));
   });
-  addEventListener("pointerdown", () => ring.classList.add("down"));
+  function flash(cls, life) {                               // a short-lived spot of light where the cursor is
+    const el = document.createElement("div"), i = document.createElement("i");
+    el.className = cls; el.style.transform = `translate(${x}px, ${y}px)`;
+    if (cls === "cur-spark") {
+      const a = Math.random() * Math.PI * 2, r = 8 + Math.random() * 14;
+      i.style.setProperty("--dx", `${Math.cos(a) * r}px`); i.style.setProperty("--dy", `${Math.sin(a) * r}px`);
+    }
+    el.append(i); document.body.append(el);
+    setTimeout(() => el.remove(), life);
+  }
+  let lastSpark = 0, sx = 0, sy = 0;
+  if (!still) addEventListener("pointermove", e => {
+    if (e.pointerType !== "mouse") return;
+    const now = performance.now(), d = Math.hypot(e.clientX - sx, e.clientY - sy);
+    if (now - lastSpark > 45 && d > 18) { lastSpark = now; sx = e.clientX; sy = e.clientY; flash("cur-spark", 750); }
+  });
+  addEventListener("pointerdown", e => { ring.classList.add("down"); if (!still && e.pointerType === "mouse") flash("cur-burst", 650); });
   addEventListener("pointerup", () => ring.classList.remove("down"));
   document.addEventListener("mouseleave", () => document.documentElement.classList.remove("has-cursor"));
-  document.addEventListener("mouseenter", () => shown && document.documentElement.classList.add("has-cursor"));
   (function move() {
     rx += (x - rx) * (still ? 1 : 0.18); ry += (y - ry) * (still ? 1 : 0.18);
     dot.style.transform = `translate(${x}px, ${y}px)`;

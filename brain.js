@@ -247,6 +247,7 @@
   let yaw = 0, pitch = 0, spin = 0, drag = null, idle = 10;
   function grab(ev) {
     if (ev.button !== undefined && ev.button > 0) return;
+    if (ev.target.closest && ev.target.closest("a, button")) return;   // links in the hero stay clickable
     drag = { x: ev.clientX, y: ev.clientY, id: ev.pointerId, t: performance.now() };
     hero.classList.add("dragging");
     try { hero.setPointerCapture(ev.pointerId); } catch (e) {}
