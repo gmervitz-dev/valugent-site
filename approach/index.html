@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How the AI agent factory works | Valugent</title>
+<meta name="description" content="How the Valugent AI agent factory builds trustworthy AI agents: a written definition, a sealed harness, evidence-based judgement, approval for each exact action, and a ledger of everything the agent does.">
+<link rel="canonical" href="https://valugent.ai/approach/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#05070b">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Valugent">
+<meta property="og:locale" content="en_AU">
+<meta property="og:title" content="How the AI agent factory works | Valugent">
+<meta property="og:description" content="How the Valugent AI agent factory builds trustworthy AI agents: a written definition, a sealed harness, evidence-based judgement, approval for each exact action, and a ledger of everything the agent does.">
+<meta property="og:url" content="https://valugent.ai/approach/">
+<meta property="og:image" content="https://valugent.ai/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Valugent: values-driven AI agents">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How the AI agent factory works | Valugent">
+<meta name="twitter:description" content="How the Valugent AI agent factory builds trustworthy AI agents: a written definition, a sealed harness, evidence-based judgement, approval for each exact action, and a ledger of everything the agent does.">
+<meta name="twitter:image" content="https://valugent.ai/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Organization",
+   "@id": "https://valugent.ai/#org",
+   "name": "Valugent",
+   "url": "https://valugent.ai/",
+   "logo": "https://valugent.ai/apple-touch-icon.png",
+   "email": "hello@valugent.ai",
+   "description": "Valugent is an AI agent factory building values-driven, trustworthy AI agents.",
+   "slogan": "Values-driven AI agents"
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Valugent",
+     "item": "https://valugent.ai/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "How it works",
+     "item": "https://valugent.ai/approach/"
+    }
+   ]
+  },
+  {
+   "@type": "WebPage",
+   "name": "How the AI agent factory works",
+   "url": "https://valugent.ai/approach/",
+   "about": {
+    "@id": "https://valugent.ai/#org"
+   }
+  }
+ ]
+}
+</script>
+<style>
+
+/* One visual world: a thinking brain in the dark, its connections firing. Full-bleed bands, wide uppercase display type, a quiet top bar. */
+:root {
+  --night: #05070b;
+  --deep: #0b1018;
+  --ink: #eef1f5;
+  --dim: #8a93a3;
+  --line: #1f2733;
+  --glow: #9cc4ff;
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; margin: 0; }
+html, body { background: var(--night); color: var(--ink); }
+body { font-family: var(--body); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: var(--ink); }
+a:focus-visible { outline: 2px solid var(--glow); outline-offset: 4px; }
+
+.bar {
+  position: absolute; inset: 0 0 auto 0; z-index: 3;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding: 26px clamp(16px, 5vw, 64px);
+}
+.mark { display: block; width: clamp(170px, 24vw, 300px); height: auto; color: var(--ink); }
+.status {
+  font-family: var(--display); font-weight: 500; font-stretch: 110%;
+  letter-spacing: 0.24em; font-size: 12px; text-transform: uppercase; color: var(--dim);
+}
+
+.hero {
+  position: relative; overflow: hidden;
+  min-height: min(760px, 92svh);
+  display: grid; align-items: end;
+  padding: 140px clamp(16px, 5vw, 64px) clamp(56px, 9vw, 110px);
+}
+.hero { cursor: grab; touch-action: pan-y; }
+.hero.dragging { cursor: grabbing; user-select: none; -webkit-user-select: none; }
+#brain { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hero::after {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(90deg, rgba(5,7,11,0.78) 0%, rgba(5,7,11,0.3) 45%, rgba(5,7,11,0) 70%),
+              linear-gradient(0deg, rgba(5,7,11,0.9) 0%, rgba(5,7,11,0) 38%);
+}
+.hero-copy { position: relative; z-index: 2; display: grid; gap: 28px; max-width: 1100px; }
+h1 {
+  font-family: var(--display); font-weight: 900; font-stretch: 125%;
+  text-transform: uppercase; line-height: 0.92; letter-spacing: -0.01em;
+  font-size: clamp(36px, 6.4vw, 100px);
+  text-wrap: balance;
+}
+.lede { max-width: 34em; font-size: clamp(17px, 1.6vw, 20px); color: var(--ink); opacity: 0.86; text-wrap: pretty; }
+
+.band {
+  border-top: 1px solid var(--line);
+  background: var(--deep);
+  padding: clamp(56px, 8vw, 104px) clamp(16px, 5vw, 64px);
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(24px, 4vw, 56px);
+}
+.part { display: grid; gap: 10px; align-content: start; }
+.part h2 {
+  font-family: var(--display); font-weight: 800; font-stretch: 125%;
+  text-transform: uppercase; letter-spacing: 0.04em; font-size: clamp(20px, 2.2vw, 28px); line-height: 1.05;
+}
+.part p { color: var(--dim); max-width: 26em; }
+
+footer {
+  border-top: 1px solid var(--line);
+  padding: 40px clamp(16px, 5vw, 64px) 48px;
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 40px;
+  font-family: var(--display); font-stretch: 110%; text-transform: uppercase;
+  letter-spacing: 0.2em; font-size: 12px; color: var(--dim);
+}
+footer strong { color: var(--ink); font-weight: 700; }
+
+.about {
+  padding: clamp(64px, 9vw, 120px) clamp(16px, 5vw, 64px);
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 80px);
+  border-top: 1px solid var(--line);
+}
+.label {
+  font-family: var(--display); font-weight: 600; font-stretch: 115%; text-transform: uppercase;
+  letter-spacing: 0.24em; font-size: 12px; color: var(--glow);
+}
+.about h2, .principles h2 {
+  font-family: var(--display); font-weight: 900; font-stretch: 125%; text-transform: uppercase;
+  line-height: 0.98; font-size: clamp(30px, 4.2vw, 60px); margin-top: 16px; text-wrap: balance;
+}
+.about .copy { display: grid; gap: 20px; max-width: 38em; align-content: start; font-size: clamp(17px, 1.4vw, 19px); }
+.about .copy p { color: var(--dim); }
+.about .copy p:first-child { color: var(--ink); }
+.principles { padding: clamp(64px, 9vw, 120px) clamp(16px, 5vw, 64px); border-top: 1px solid var(--line); }
+.principles ol {
+  list-style: none; padding: 0; margin-top: clamp(32px, 4vw, 56px);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--line);
+  border: 1px solid var(--line);
+}
+.principles li { background: var(--night); padding: 28px 24px 32px; display: grid; gap: 10px; align-content: start; }
+.principles li span {
+  font-family: var(--display); font-stretch: 110%; font-size: 12px; letter-spacing: 0.2em; color: var(--glow);
+  font-variant-numeric: tabular-nums;
+}
+.principles h3 {
+  font-family: var(--display); font-weight: 800; font-stretch: 120%; text-transform: uppercase;
+  letter-spacing: 0.03em; font-size: 19px; line-height: 1.15;
+}
+.principles li p { color: var(--dim); font-size: 16px; }
+footer a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }
+footer a:hover, footer a:focus-visible { border-color: var(--ink); }
+.status a { color: var(--dim); text-decoration: none; }
+.status a:hover, .status a:focus-visible { color: var(--ink); }
+
+@media (max-width: 760px) {
+  .about { grid-template-columns: 1fr; }
+  .band { grid-template-columns: 1fr 1fr; }
+  .status { display: none; }
+}
+
+.status { display: flex; gap: 22px; }
+.page .bar { position: relative; }
+.crumbs { font-family: var(--display); font-stretch: 110%; text-transform: uppercase; letter-spacing: 0.2em;
+  font-size: 12px; color: var(--dim); }
+.crumbs a { color: var(--dim); text-decoration: none; }
+.crumbs a:hover, .crumbs a:focus-visible { color: var(--ink); }
+.page-head { padding: clamp(40px, 7vw, 96px) clamp(16px, 5vw, 64px) clamp(40px, 6vw, 72px); display: grid; gap: 24px;
+  max-width: 1200px; }
+.page-head h1 { font-size: clamp(36px, 6vw, 92px); }
+.prose { padding: 0 clamp(16px, 5vw, 64px) clamp(64px, 9vw, 120px); display: grid; gap: clamp(40px, 5vw, 64px); }
+.prose section { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(20px, 4vw, 64px);
+  border-top: 1px solid var(--line); padding-top: clamp(28px, 4vw, 48px); }
+.prose h2 { font-family: var(--display); font-weight: 800; font-stretch: 120%; text-transform: uppercase;
+  font-size: clamp(22px, 2.4vw, 32px); line-height: 1.05; letter-spacing: 0.02em; text-wrap: balance; }
+.prose h2 span { display: block; font-size: 12px; letter-spacing: 0.24em; color: var(--glow); margin-bottom: 12px;
+  font-weight: 600; font-variant-numeric: tabular-nums; }
+.prose .body { display: grid; gap: 16px; max-width: 40em; color: var(--dim); font-size: clamp(17px, 1.3vw, 19px); }
+.prose .body p:first-child { color: var(--ink); }
+.prose .body ul { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+.faq { padding: clamp(64px, 9vw, 120px) clamp(16px, 5vw, 64px); border-top: 1px solid var(--line); }
+.faq h2 { font-family: var(--display); font-weight: 900; font-stretch: 125%; text-transform: uppercase; line-height: 0.98;
+  font-size: clamp(30px, 4.2vw, 60px); margin-top: 16px; text-wrap: balance; }
+.faq dl { margin: clamp(32px, 4vw, 56px) 0 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.faq .qa { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(16px, 4vw, 64px);
+  padding: 28px 0; border-bottom: 1px solid var(--line); }
+.faq dt { font-family: var(--display); font-weight: 700; font-stretch: 115%; font-size: clamp(18px, 1.6vw, 22px);
+  line-height: 1.25; }
+.faq dd { margin: 0; color: var(--dim); max-width: 40em; }
+.more { display: inline-block; margin-top: 28px; font-family: var(--display); font-stretch: 115%; text-transform: uppercase;
+  letter-spacing: 0.18em; font-size: 13px; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--glow);
+  padding-bottom: 4px; }
+.more:hover, .more:focus-visible { color: var(--glow); }
+.next { padding: clamp(48px, 7vw, 96px) clamp(16px, 5vw, 64px); border-top: 1px solid var(--line); background: var(--deep);
+  display: flex; flex-wrap: wrap; gap: 16px 48px; align-items: baseline; justify-content: space-between; }
+.next p { font-family: var(--display); font-weight: 800; font-stretch: 120%; text-transform: uppercase;
+  font-size: clamp(22px, 2.6vw, 36px); line-height: 1.05; max-width: 22em; }
+@media (max-width: 760px) {
+  .status { display: flex !important; gap: 14px; font-size: 11px; letter-spacing: 0.16em; }
+  .prose section, .faq .qa { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) { .bar { flex-wrap: wrap; row-gap: 14px; } }
+@media (max-width: 480px) {
+  h1, .page-head h1 { font-stretch: 100%; font-size: clamp(30px, 9.4vw, 44px); }
+  .about h2, .principles h2, .faq h2 { font-stretch: 105%; font-size: clamp(26px, 8vw, 40px); }
+  .next p { font-stretch: 105%; }
+}
+
+</style>
+</head>
+<body class="page">
+<header class="bar">
+  <a href="/" aria-label="Valugent home"><svg class="mark" viewBox="-4 -4 1018 68" role="img" aria-label="Valugent"><g fill="none" stroke="currentColor" stroke-width="13" stroke-linejoin="miter" stroke-miterlimit="10"><path transform="translate(0 0)" d="M2,2 L50,58 L98,2"/><path transform="translate(130 0)" d="M2,58 L50,2 L98,58"/><path transform="translate(260 0)" d="M7,0 V53 H100"/><path transform="translate(390 0)" d="M7,0 V36 Q7,53 24,53 H76 Q93,53 93,36 V0"/><path transform="translate(520 0)" d="M100,7 H24 Q7,7 7,24 V36 Q7,53 24,53 H76 Q93,53 93,36 V30 H58"/><path transform="translate(650 0)" d="M100,7 H7 V53 H100 M7,30 H78"/><path transform="translate(780 0)" d="M7,60 V9 L93,51 V0"/><path transform="translate(910 0)" d="M0,7 H100 M50,7 V60"/></g></svg></a>
+  <nav class="status" aria-label="Main"><a href="/approach/" aria-current="page">How it works</a><a href="/principles/">Principles</a><a href="/#faq">FAQ</a></nav>
+</header>
+<main>
+  <div class="page-head">
+    <p class="crumbs"><a href="/">Valugent</a> / How it works</p>
+    <h1>How the AI agent factory works</h1>
+    <p class="lede">An AI model is like an untamed dragon: enormous power, not fully predictable, and rented. The Valugent factory supplies the rest: the reins, the rider's judgement and the flight recorder.</p>
+  </div>
+  <div class="prose">
+    <section><h2><span>01</span>Start with a definition</h2><div class="body"><p>Every AI agent begins as a plain written definition, kept as a versioned file. It says what the agent is for, what it may do, what it must never do, and which actions need a person's approval.</p><p>The definition holds no personal data, so it can be read, reviewed and changed like any other document. The factory builds the agent from it, the same way every time.</p></div></section>
+    <section><h2><span>02</span>A sealed harness</h2><div class="body"><p>The agent works inside a sealed environment. It can reach only the tools its definition allows, through one gateway that checks each request, and nothing leaves that environment without permission.</p><p>Logins and keys stay with the factory, never with the agent. The model can be as capable as it likes: the harness decides where it may go.</p></div></section>
+    <section><h2><span>03</span>Judgement built from evidence</h2><div class="body"><p>An agent's answers rest on the documents and checks behind them. Figures are checked against their sources, and an independent review step looks at the answer before it stands.</p><p>When the evidence is not there, the agent says so instead of guessing. A clear "I cannot confirm this" is worth more than a confident mistake.</p></div></section>
+    <section><h2><span>04</span>Approval for the exact action</h2><div class="body"><p>For anything that matters, an agent proposes and a person decides. An approval is bound to the exact action that was shown, so it cannot be reused for something else.</p></div></section>
+    <section><h2><span>05</span>A ledger as the flight recorder</h2><div class="body"><p>Every step an agent takes is written to a ledger: what it read, what it ran, what it proposed and who approved it. The ledger is built so that a changed or missing entry shows.</p><p>It is the proof of what the agent actually did, not the agent's own account of it.</p></div></section>
+    <section><h2><span>06</span>Any model, the same agent</h2><div class="body"><p>The factory reaches AI models through a single interface. An agent's definition is not tied to one provider, so it can move between models and keep its limits, checks and record.</p><p>Models get stronger every few months. The factory is built around evidence and checks rather than around today's model's weaknesses, so a stronger model makes a better agent, not a riskier one.</p></div></section>
+  </div>
+  <div class="next"><p>The values behind every Valugent agent</p><a class="more" href="/principles/">Read the principles</a></div>
+
+</main>
+<footer>
+  <span><strong>Valugent</strong> &middot; AI agent factory &middot; in development</span>
+  <span>Contact <a href="mailto:hello@valugent.ai">hello@valugent.ai</a></span>
+  <span><a href="/approach/">How it works</a> &nbsp; <a href="/principles/">Principles</a></span>
+  <span>&copy; 2026 Valugent</span>
+</footer>
+
+</body>
+</html>

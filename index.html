@@ -3,33 +3,121 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Valugent | Values-driven AI agents</title>
-<meta name="description" content="Valugent is building values-driven AI agents: agents that act only within the authority they are given, rest their answers on evidence, and keep a record of everything they do. In development.">
+<title>Valugent | AI agent factory for values-driven, trustworthy AI agents</title>
+<meta name="description" content="Valugent is an AI agent factory. It turns a plain written definition into a values-driven AI agent that acts only within its authority, rests its answers on evidence, and keeps a record of everything it does.">
 <link rel="canonical" href="https://valugent.ai/">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#05070b">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Valugent">
-<meta property="og:title" content="Valugent | Values-driven AI agents">
-<meta property="og:description" content="Valugent is building values-driven AI agents: agents that act only within the authority they are given, rest their answers on evidence, and keep a record of everything they do. In development.">
+<meta property="og:locale" content="en_AU">
+<meta property="og:title" content="Valugent | AI agent factory for values-driven, trustworthy AI agents">
+<meta property="og:description" content="Valugent is an AI agent factory. It turns a plain written definition into a values-driven AI agent that acts only within its authority, rests its answers on evidence, and keeps a record of everything it does.">
 <meta property="og:url" content="https://valugent.ai/">
 <meta property="og:image" content="https://valugent.ai/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Valugent: values-driven AI agents">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Valugent | Values-driven AI agents">
-<meta name="twitter:description" content="Valugent is building values-driven AI agents: agents that act only within the authority they are given, rest their answers on evidence, and keep a record of everything they do. In development.">
+<meta name="twitter:title" content="Valugent | AI agent factory for values-driven, trustworthy AI agents">
+<meta name="twitter:description" content="Valugent is an AI agent factory. It turns a plain written definition into a values-driven AI agent that acts only within its authority, rests its answers on evidence, and keeps a record of everything it does.">
 <meta name="twitter:image" content="https://valugent.ai/og.png">
-<script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "Organization", "name": "Valugent", "url": "https://valugent.ai/",
- "logo": "https://valugent.ai/apple-touch-icon.png", "email": "hello@valugent.ai", "description": "Valugent is building values-driven AI agents: agents that act only within the authority they are given, rest their answers on evidence, and keep a record of everything they do. In development."}
-</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Organization",
+   "@id": "https://valugent.ai/#org",
+   "name": "Valugent",
+   "url": "https://valugent.ai/",
+   "logo": "https://valugent.ai/apple-touch-icon.png",
+   "email": "hello@valugent.ai",
+   "description": "Valugent is an AI agent factory building values-driven, trustworthy AI agents.",
+   "slogan": "Values-driven AI agents"
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://valugent.ai/#site",
+   "name": "Valugent",
+   "url": "https://valugent.ai/",
+   "publisher": {
+    "@id": "https://valugent.ai/#org"
+   },
+   "inLanguage": "en"
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://valugent.ai/#faq",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "What is an AI agent factory?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "An AI agent factory builds AI agents from a specification instead of by hand. At Valugent, each agent starts as a plain written definition: what it is for, what it may do and what it must never do. The factory turns that definition into a working agent, with the same limits, checks and record every time."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What makes a Valugent AI agent trustworthy?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Trust comes from what surrounds the model, not from the model alone. Each agent runs in a sealed environment, can use only the tools it is allowed, needs approval for the exact action it takes, and writes every step to a ledger that can be checked later."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What does values-driven mean for an AI agent?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "It means an agent's purpose and limits come first. They are written down before the agent is given any power, and the factory holds the agent to them: it refuses rather than guesses, and it stays inside the authority it was given."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Which AI models does Valugent work with?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The factory reaches the model through a single interface, so an agent's definition is not tied to one AI model or provider. The same definition is meant to behave the same way on any model, and to keep working as models get stronger."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What does an AI agent do when it is not sure?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "It says so. A Valugent agent rests its answers on the documents and checks behind them. When the evidence is not there, it reports that it cannot confirm the answer instead of guessing."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can a Valugent agent act without a person's approval?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Not for actions that matter. An approval is bound to the exact action a person agreed to, so an agent cannot reuse it for anything else, and every approval is recorded."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is Valugent available now?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Not yet. Valugent is in development, and the first agents are being built and tested for our own use. To get in touch, write to hello@valugent.ai."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
 <style>
+
 /* One visual world: a thinking brain in the dark, its connections firing. Full-bleed bands, wide uppercase display type, a quiet top bar. */
 :root {
   --night: #05070b;
@@ -146,36 +234,84 @@ footer a:hover, footer a:focus-visible { border-color: var(--ink); }
   .band { grid-template-columns: 1fr 1fr; }
   .status { display: none; }
 }
+
+.status { display: flex; gap: 22px; }
+.page .bar { position: relative; }
+.crumbs { font-family: var(--display); font-stretch: 110%; text-transform: uppercase; letter-spacing: 0.2em;
+  font-size: 12px; color: var(--dim); }
+.crumbs a { color: var(--dim); text-decoration: none; }
+.crumbs a:hover, .crumbs a:focus-visible { color: var(--ink); }
+.page-head { padding: clamp(40px, 7vw, 96px) clamp(16px, 5vw, 64px) clamp(40px, 6vw, 72px); display: grid; gap: 24px;
+  max-width: 1200px; }
+.page-head h1 { font-size: clamp(36px, 6vw, 92px); }
+.prose { padding: 0 clamp(16px, 5vw, 64px) clamp(64px, 9vw, 120px); display: grid; gap: clamp(40px, 5vw, 64px); }
+.prose section { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(20px, 4vw, 64px);
+  border-top: 1px solid var(--line); padding-top: clamp(28px, 4vw, 48px); }
+.prose h2 { font-family: var(--display); font-weight: 800; font-stretch: 120%; text-transform: uppercase;
+  font-size: clamp(22px, 2.4vw, 32px); line-height: 1.05; letter-spacing: 0.02em; text-wrap: balance; }
+.prose h2 span { display: block; font-size: 12px; letter-spacing: 0.24em; color: var(--glow); margin-bottom: 12px;
+  font-weight: 600; font-variant-numeric: tabular-nums; }
+.prose .body { display: grid; gap: 16px; max-width: 40em; color: var(--dim); font-size: clamp(17px, 1.3vw, 19px); }
+.prose .body p:first-child { color: var(--ink); }
+.prose .body ul { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+.faq { padding: clamp(64px, 9vw, 120px) clamp(16px, 5vw, 64px); border-top: 1px solid var(--line); }
+.faq h2 { font-family: var(--display); font-weight: 900; font-stretch: 125%; text-transform: uppercase; line-height: 0.98;
+  font-size: clamp(30px, 4.2vw, 60px); margin-top: 16px; text-wrap: balance; }
+.faq dl { margin: clamp(32px, 4vw, 56px) 0 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.faq .qa { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(16px, 4vw, 64px);
+  padding: 28px 0; border-bottom: 1px solid var(--line); }
+.faq dt { font-family: var(--display); font-weight: 700; font-stretch: 115%; font-size: clamp(18px, 1.6vw, 22px);
+  line-height: 1.25; }
+.faq dd { margin: 0; color: var(--dim); max-width: 40em; }
+.more { display: inline-block; margin-top: 28px; font-family: var(--display); font-stretch: 115%; text-transform: uppercase;
+  letter-spacing: 0.18em; font-size: 13px; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--glow);
+  padding-bottom: 4px; }
+.more:hover, .more:focus-visible { color: var(--glow); }
+.next { padding: clamp(48px, 7vw, 96px) clamp(16px, 5vw, 64px); border-top: 1px solid var(--line); background: var(--deep);
+  display: flex; flex-wrap: wrap; gap: 16px 48px; align-items: baseline; justify-content: space-between; }
+.next p { font-family: var(--display); font-weight: 800; font-stretch: 120%; text-transform: uppercase;
+  font-size: clamp(22px, 2.6vw, 36px); line-height: 1.05; max-width: 22em; }
+@media (max-width: 760px) {
+  .status { display: flex !important; gap: 14px; font-size: 11px; letter-spacing: 0.16em; }
+  .prose section, .faq .qa { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) { .bar { flex-wrap: wrap; row-gap: 14px; } }
+@media (max-width: 480px) {
+  h1, .page-head h1 { font-stretch: 100%; font-size: clamp(30px, 9.4vw, 44px); }
+  .about h2, .principles h2, .faq h2 { font-stretch: 105%; font-size: clamp(26px, 8vw, 40px); }
+  .next p { font-stretch: 105%; }
+}
+
 </style>
 </head>
 <body>
 <header class="bar">
-  <svg class="mark" viewBox="-4 -4 1018 68" role="img" aria-label="Valugent"><g fill="none" stroke="currentColor" stroke-width="13" stroke-linejoin="miter" stroke-miterlimit="10"><path transform="translate(0 0)" d="M2,2 L50,58 L98,2"/><path transform="translate(130 0)" d="M2,58 L50,2 L98,58"/><path transform="translate(260 0)" d="M7,0 V53 H100"/><path transform="translate(390 0)" d="M7,0 V36 Q7,53 24,53 H76 Q93,53 93,36 V0"/><path transform="translate(520 0)" d="M100,7 H24 Q7,7 7,24 V36 Q7,53 24,53 H76 Q93,53 93,36 V30 H58"/><path transform="translate(650 0)" d="M100,7 H7 V53 H100 M7,30 H78"/><path transform="translate(780 0)" d="M7,60 V9 L93,51 V0"/><path transform="translate(910 0)" d="M0,7 H100 M50,7 V60"/></g></svg>
-  <nav class="status" aria-label="Sections"><a href="#about">About</a> &nbsp;&middot;&nbsp; <a href="#principles">Principles</a></nav>
+  <a href="/" aria-label="Valugent home"><svg class="mark" viewBox="-4 -4 1018 68" role="img" aria-label="Valugent"><g fill="none" stroke="currentColor" stroke-width="13" stroke-linejoin="miter" stroke-miterlimit="10"><path transform="translate(0 0)" d="M2,2 L50,58 L98,2"/><path transform="translate(130 0)" d="M2,58 L50,2 L98,58"/><path transform="translate(260 0)" d="M7,0 V53 H100"/><path transform="translate(390 0)" d="M7,0 V36 Q7,53 24,53 H76 Q93,53 93,36 V0"/><path transform="translate(520 0)" d="M100,7 H24 Q7,7 7,24 V36 Q7,53 24,53 H76 Q93,53 93,36 V30 H58"/><path transform="translate(650 0)" d="M100,7 H7 V53 H100 M7,30 H78"/><path transform="translate(780 0)" d="M7,60 V9 L93,51 V0"/><path transform="translate(910 0)" d="M0,7 H100 M50,7 V60"/></g></svg></a>
+  <nav class="status" aria-label="Main"><a href="/approach/">How it works</a><a href="/principles/">Principles</a><a href="/#faq">FAQ</a></nav>
 </header>
-
 <main>
   <section class="hero">
     <canvas id="brain" aria-hidden="true"></canvas>
     <div class="hero-copy">
-      <h1>Values-driven<br>agents</h1>
-      <p class="lede">AI agents built to act only within the authority they are given, and to keep a record of everything they do.</p>
+      <h1>Values-driven<br>AI agents</h1>
+      <p class="lede">Valugent is an AI agent factory. It builds AI agents that act only within the authority they are given, rest their answers on evidence, and keep a record of everything they do.</p>
     </div>
   </section>
 
   <section class="about" id="about">
     <div>
       <p class="label">What we are building</p>
-      <h2>A factory for agents you can trust</h2>
+      <h2>An AI agent factory you can trust</h2>
     </div>
     <div class="copy">
       <p>Valugent is building a factory for AI agents. Each agent starts as a plain written definition: what it is for, what it may do, and what it must never do. The factory turns that definition into a working agent.</p>
-      <p>The aim is an agent that behaves the same way on any AI model, acts only within the authority it was given, and can show what it did. AI models keep getting more powerful, and they are not fully predictable. Valugent supplies what the model lacks: limits, evidence, checks and a record.</p>
+      <p>The aim is an AI agent that behaves the same way on any model, acts only within the authority it was given, and can show what it did. AI models keep getting more powerful, and they are not fully predictable. Valugent supplies what the model lacks: limits, evidence, checks and a record.</p>
       <p>The work is in development. The first agents are being built and tested for our own use.</p>
+      <p><a class="more" href="/approach/">How the AI agent factory works</a></p>
     </div>
   </section>
 
-  <section class="band" aria-label="How a Valugent agent is put together">
+  <section class="band" aria-label="How a Valugent AI agent is put together">
     <div class="part">
       <h2>The model</h2>
       <p>The power. Rented from a provider, and replaceable.</p>
@@ -204,344 +340,31 @@ footer a:hover, footer a:focus-visible { border-color: var(--ink); }
       <li><span>04</span><h3>A record of everything</h3><p>Every action is written to a ledger that can be checked later.</p></li>
       <li><span>05</span><h3>Not tied to one model</h3><p>An agent's definition belongs to its owner and can move between AI models.</p></li>
     </ol>
+    <a class="more" href="/principles/">Read the principles in full</a>
   </section>
-</main>
 
+  <section class="faq" id="faq">
+    <p class="label">Questions</p>
+    <h2>AI agents, answered</h2>
+    <dl>
+      <div class="qa"><dt>What is an AI agent factory?</dt><dd>An AI agent factory builds AI agents from a specification instead of by hand. At Valugent, each agent starts as a plain written definition: what it is for, what it may do and what it must never do. The factory turns that definition into a working agent, with the same limits, checks and record every time.</dd></div>
+      <div class="qa"><dt>What makes a Valugent AI agent trustworthy?</dt><dd>Trust comes from what surrounds the model, not from the model alone. Each agent runs in a sealed environment, can use only the tools it is allowed, needs approval for the exact action it takes, and writes every step to a ledger that can be checked later.</dd></div>
+      <div class="qa"><dt>What does values-driven mean for an AI agent?</dt><dd>It means an agent's purpose and limits come first. They are written down before the agent is given any power, and the factory holds the agent to them: it refuses rather than guesses, and it stays inside the authority it was given.</dd></div>
+      <div class="qa"><dt>Which AI models does Valugent work with?</dt><dd>The factory reaches the model through a single interface, so an agent's definition is not tied to one AI model or provider. The same definition is meant to behave the same way on any model, and to keep working as models get stronger.</dd></div>
+      <div class="qa"><dt>What does an AI agent do when it is not sure?</dt><dd>It says so. A Valugent agent rests its answers on the documents and checks behind them. When the evidence is not there, it reports that it cannot confirm the answer instead of guessing.</dd></div>
+      <div class="qa"><dt>Can a Valugent agent act without a person's approval?</dt><dd>Not for actions that matter. An approval is bound to the exact action a person agreed to, so an agent cannot reuse it for anything else, and every approval is recorded.</dd></div>
+      <div class="qa"><dt>Is Valugent available now?</dt><dd>Not yet. Valugent is in development, and the first agents are being built and tested for our own use. To get in touch, write to hello@valugent.ai.</dd></div>
+    </dl>
+  </section>
+
+</main>
 <footer>
-  <span><strong>Coming soon</strong></span>
+  <span><strong>Valugent</strong> &middot; AI agent factory &middot; in development</span>
   <span>Contact <a href="mailto:hello@valugent.ai">hello@valugent.ai</a></span>
+  <span><a href="/approach/">How it works</a> &nbsp; <a href="/principles/">Principles</a></span>
   <span>&copy; 2026 Valugent</span>
 </footer>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script>
-(() => {
-  // An original brain, seen first from the side. Its outline is drawn once in the side view (front lobe, crown,
-  // back, cerebellum tucked under the back, stem, temporal lobe), and the 3D form is that outline narrowing toward
-  // each side, so it is one continuous shape. Folds are traced on its surface; nearby points are joined, and signals
-  // travel along the joins. A touch or a mouse over it lights the connections near that spot.
-  const canvas = document.getElementById("brain");
-  const hero = canvas && canvas.closest(".hero");
-  if (!window.THREE || !canvas) return;
-  const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  let renderer;
-  try {
-    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: "low-power" });
-  } catch (e) { return; }
-  renderer.setClearColor(0x05070b, 1);
-
-  let seed = 20261127;
-  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-  const TAU = Math.PI * 2;
-
-  // ---- the side outline: radius from the centre by angle (0 = the front, a quarter turn = the top)
-  const OUT = [  // [degrees, radius, half-width]
-    [0, 0.98, 0.7], [25, 1.0, 0.72], [55, 0.93, 0.74], [90, 0.84, 0.75], [120, 0.86, 0.75], [150, 0.95, 0.73],
-    [178, 1.04, 0.66], [198, 0.97, 0.6], [214, 0.8, 0.52], [232, 0.9, 0.5], [250, 0.86, 0.42], [262, 0.82, 0.24],
-    [272, 1.06, 0.16], [281, 0.8, 0.2], [292, 0.58, 0.45], [312, 0.66, 0.62], [334, 0.74, 0.62], [347, 0.68, 0.55],
-    [356, 0.86, 0.64]];
-  function along(deg, col) {           // a smooth (Catmull-Rom) reading of the table, wrapping round
-    const n = OUT.length;
-    let i = 0;
-    while (i < n - 1 && OUT[i + 1][0] <= deg) i++;
-    const p = k => OUT[(k + n) % n], a0 = p(i - 1), a1 = p(i), a2 = p(i + 1), a3 = p(i + 2);
-    const d1 = a1[0], d2 = i + 1 >= n ? a2[0] + 360 : a2[0];
-    const t = (deg - d1) / (d2 - d1);
-    const y0 = a0[col], y1 = a1[col], y2 = a2[col], y3 = a3[col];
-    return 0.5 * (2 * y1 + (-y0 + y2) * t + (2 * y0 - 5 * y1 + 4 * y2 - y3) * t * t + (-y0 + 3 * y1 - 3 * y2 + y3) * t * t * t);
-  }
-  const R = th => along(((th * 180 / Math.PI) % 360 + 360) % 360, 1);
-  const W = th => along(((th * 180 / Math.PI) % 360 + 360) % 360, 2);
-  const LEN = 1.05;                     // stretch front to back
-  // a point of the surface from the side-view angle th, how far out r (0 centre, 1 rim) and which side (+1, -1)
-  function surface(th, r, side, inset = 1) {
-    const rr = R(th) * r;
-    const z = Math.cos(th) * rr * LEN, y = Math.sin(th) * rr;
-    const x = side * W(th) * Math.sqrt(Math.max(0, 1 - r * r)) * inset;
-    return [x, y, z];
-  }
-
-  // ---- the points the signals run between
-  const pts = [];
-  for (let i = 0; i < 2100; i++) {
-    const th = rnd() * TAU;
-    const r = Math.min(0.999, Math.sqrt(rnd()) * (1 + 0.025 * Math.sin(th * 23)));
-    const p = surface(th, r, rnd() < 0.5 ? 1 : -1, rnd() < 0.86 ? 1 : 0.2 + rnd() * 0.7);
-    pts.push(p);
-  }
-  const N = pts.length;
-
-  // ---- the folds: the two great grooves, winding folds over the cerebrum, fine bands on the cerebellum
-  const folds = [];
-  function trace(path, side) {         // path: [th, r] pairs in the side view
-    for (let k = 0; k < path.length - 1; k++)
-      folds.push(surface(path[k][0], path[k][1], side, 1.004), surface(path[k + 1][0], path[k + 1][1], side, 1.004));
-  }
-  const rad = d => d * Math.PI / 180;
-  const cerebrum = th => { const d = ((th * 180 / Math.PI) % 360 + 360) % 360; return d < 200 || d > 300; };
-  function line(a, b, steps, wob) {
-    const out = [];
-    for (let s = 0; s <= steps; s++) {
-      const t = s / steps;
-      out.push([a[0] + (b[0] - a[0]) * t + wob * Math.sin(t * 9 + a[0] * 3), a[1] + (b[1] - a[1]) * t + wob * 0.6 * Math.sin(t * 13)]);
-    }
-    return out;
-  }
-  for (const side of [1, -1]) {
-    trace(line([rad(345), 0.95], [rad(200), 0.42], 28, 0.03), side);            // the lateral groove
-    trace(line([rad(82), 0.99], [rad(10), 0.42], 24, 0.03), side);              // the central groove
-    for (let n = 0; n < 46; n++) {                                              // winding folds
-      let th = rnd() * TAU, r = 0.25 + rnd() * 0.72;
-      if (!cerebrum(th)) continue;
-      const path = [[th, r]];
-      let heading = rnd() * TAU;
-      for (let s = 0; s < 16; s++) {
-        heading += (rnd() - 0.5) * 1.3;
-        th += Math.cos(heading) * 0.045; r += Math.sin(heading) * 0.03;
-        r = Math.min(0.98, Math.max(0.15, r));
-        if (!cerebrum(th)) break;
-        path.push([th, r]);
-      }
-      if (path.length > 4) trace(path, side);
-    }
-    for (let b = 0; b < 7; b++) {                                               // the cerebellum's bands
-      const r = 0.62 + b * 0.055, path = [];
-      for (let d = 205; d <= 258; d += 3) path.push([rad(d), r + 0.012 * Math.sin(d * 0.7)]);
-      trace(path, side);
-    }
-  }
-
-  // ---- the connections: each point to its nearest neighbours, plus a few longer tracts through the inside
-  const edges = [], seen = new Set();
-  const dist = (i, j) => Math.hypot(pts[i][0] - pts[j][0], pts[i][1] - pts[j][1], pts[i][2] - pts[j][2]);
-  function join(i, j) {
-    const k = i < j ? i + "," + j : j + "," + i;
-    if (i === j || seen.has(k)) return;
-    seen.add(k);
-    edges.push({ a: i, b: j, len: dist(i, j) });
-  }
-  for (let i = 0; i < N; i++) {
-    const near = [];
-    for (let j = 0; j < N; j++) if (j !== i) { const d = dist(i, j); if (d < 0.16) near.push([d, j]); }
-    near.sort((p, q) => p[0] - q[0]);
-    for (const [, j] of near.slice(0, 3)) join(i, j);
-  }
-  for (let n = 0; n < 50; n++) {
-    const i = Math.floor(rnd() * N), j = Math.floor(rnd() * N), d = dist(i, j);
-    if (d > 0.3 && d < 0.75) join(i, j);
-  }
-  const E = edges.length;
-  const adj = Array.from({ length: N }, () => []);
-  edges.forEach((e, k) => { adj[e.a].push(k); adj[e.b].push(k); });
-
-  // ---- the scene
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 50);
-  camera.position.set(0, 0.05, 4.6);
-  const brain = new THREE.Group();
-  const SIDE = -Math.PI / 2;           // the left side faces the viewer, the front to the right
-  brain.rotation.set(0.1, SIDE, 0);
-  scene.add(brain);
-
-  const dot = document.createElement("canvas");
-  dot.width = dot.height = 64;
-  const g = dot.getContext("2d");
-  const grad = g.createRadialGradient(32, 32, 0, 32, 32, 32);
-  grad.addColorStop(0, "rgba(255,255,255,1)");
-  grad.addColorStop(0.25, "rgba(255,255,255,0.55)");
-  grad.addColorStop(1, "rgba(255,255,255,0)");
-  g.fillStyle = grad; g.fillRect(0, 0, 64, 64);
-  const sprite = new THREE.CanvasTexture(dot);
-
-  const BASE = [0.5, 0.58, 0.72], FLASH = [1.0, 0.97, 0.9], LINE = [0.07, 0.09, 0.125], LIT = [0.6, 0.75, 1.0];
-  const add = { transparent: true, depthWrite: false, blending: THREE.AdditiveBlending };
-
-  const foldGeo = new THREE.BufferGeometry();
-  foldGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(folds.flat()), 3));
-  brain.add(new THREE.LineSegments(foldGeo, new THREE.LineBasicMaterial({ color: 0x6f86aa, opacity: 0.7, ...add })));
-
-  const nodePos = new Float32Array(N * 3), nodeCol = new Float32Array(N * 3);
-  pts.forEach((p, i) => nodePos.set(p, i * 3));
-  const nodeGeo = new THREE.BufferGeometry();
-  nodeGeo.setAttribute("position", new THREE.BufferAttribute(nodePos, 3));
-  nodeGeo.setAttribute("color", new THREE.BufferAttribute(nodeCol, 3));
-  brain.add(new THREE.Points(nodeGeo, new THREE.PointsMaterial({ size: 0.04, map: sprite, vertexColors: true, ...add })));
-
-  const linePos = new Float32Array(E * 6), lineCol = new Float32Array(E * 6);
-  edges.forEach((e, k) => { linePos.set(pts[e.a], k * 6); linePos.set(pts[e.b], k * 6 + 3); });
-  const lineGeo = new THREE.BufferGeometry();
-  lineGeo.setAttribute("position", new THREE.BufferAttribute(linePos, 3));
-  lineGeo.setAttribute("color", new THREE.BufferAttribute(lineCol, 3));
-  brain.add(new THREE.LineSegments(lineGeo, new THREE.LineBasicMaterial({ vertexColors: true, ...add })));
-
-  const MAXP = 160;
-  const pulsePos = new Float32Array(MAXP * 3);
-  const pulseGeo = new THREE.BufferGeometry();
-  pulseGeo.setAttribute("position", new THREE.BufferAttribute(pulsePos, 3));
-  pulseGeo.setDrawRange(0, 0);
-  brain.add(new THREE.Points(pulseGeo, new THREE.PointsMaterial({ size: 0.07, map: sprite, color: 0xe8f0ff, ...add })));
-
-  // ---- the activity
-  const flash = new Float32Array(N), glow = new Float32Array(E);
-  const pulses = [];
-  let clock = 0, nextSpark = 0;
-  function fire(from, avoid, speed = 1) {
-    const out = adj[from].filter(k => k !== avoid);
-    if (!out.length || pulses.length >= MAXP) return;
-    const k = out[Math.floor(rnd() * out.length)], e = edges[k];
-    pulses.push({ k, from, to: e.a === from ? e.b : e.a, t: 0, speed: (0.55 + rnd() * 0.35) * speed });
-  }
-  function step(dt) {
-    clock += dt;
-    if (clock >= nextSpark) {
-      const i = Math.floor(rnd() * N);
-      flash[i] = 1; fire(i, -1);
-      nextSpark = clock + 0.15 + rnd() * 0.3;
-    }
-    for (let n = pulses.length - 1; n >= 0; n--) {
-      const p = pulses[n];
-      p.t += dt * p.speed / Math.max(edges[p.k].len, 0.02);
-      glow[p.k] = 1;
-      if (p.t >= 1) {
-        pulses.splice(n, 1);
-        flash[p.to] = 1;
-        if (rnd() < 0.62) fire(p.to, p.k, p.speed > 1.2 ? 1.3 : 1);
-        if (rnd() < 0.12) fire(p.to, p.k);
-      }
-    }
-    const fd = Math.exp(-dt * 2.2), gd = Math.exp(-dt * 1.4);
-    for (let i = 0; i < N; i++) {
-      flash[i] *= fd;
-      const f = flash[i];
-      nodeCol[i * 3] = BASE[0] + (FLASH[0] - BASE[0]) * f;
-      nodeCol[i * 3 + 1] = BASE[1] + (FLASH[1] - BASE[1]) * f;
-      nodeCol[i * 3 + 2] = BASE[2] + (FLASH[2] - BASE[2]) * f;
-    }
-    for (let k = 0; k < E; k++) {
-      glow[k] *= gd;
-      const q = glow[k];
-      const r = LINE[0] + LIT[0] * q, gg = LINE[1] + LIT[1] * q, b = LINE[2] + LIT[2] * q;
-      lineCol[k * 6] = lineCol[k * 6 + 3] = r;
-      lineCol[k * 6 + 1] = lineCol[k * 6 + 4] = gg;
-      lineCol[k * 6 + 2] = lineCol[k * 6 + 5] = b;
-    }
-    pulses.forEach((p, n) => {
-      const a = pts[p.from], b = pts[p.to];
-      pulsePos[n * 3] = a[0] + (b[0] - a[0]) * p.t;
-      pulsePos[n * 3 + 1] = a[1] + (b[1] - a[1]) * p.t;
-      pulsePos[n * 3 + 2] = a[2] + (b[2] - a[2]) * p.t;
-    });
-    pulseGeo.setDrawRange(0, pulses.length);
-    nodeGeo.attributes.color.needsUpdate = true;
-    lineGeo.attributes.color.needsUpdate = true;
-    pulseGeo.attributes.position.needsUpdate = true;
-  }
-
-  // ---- touch: the points near the finger or the pointer light up, and send signals outward
-  const v = new THREE.Vector3();
-  let lastTouch = 0;
-  function touch(ev) {
-    const now = performance.now();
-    if (now - lastTouch < 60) return;
-    lastTouch = now;
-    const box = canvas.getBoundingClientRect();
-    const px = ev.clientX - box.left, py = ev.clientY - box.top;
-    brain.updateMatrixWorld();
-    const reach = Math.max(36, box.width * 0.035);
-    let lit = 0;
-    for (let i = 0; i < N && lit < 14; i++) {
-      v.fromArray(pts[i]).applyMatrix4(brain.matrixWorld).project(camera);
-      const sx = (v.x + 1) / 2 * box.width, sy = (1 - v.y) / 2 * box.height;
-      if (Math.hypot(sx - px, sy - py) < reach) {
-        flash[i] = 1; fire(i, -1, 1.6);
-        lit++;
-      }
-    }
-    if (still && lit) { step(1 / 60); render(); }
-  }
-  // ---- click (or press) and hold to turn it by hand; it carries on turning by itself shortly after
-  let yaw = 0, pitch = 0, spin = 0, drag = null, idle = 10;
-  function grab(ev) {
-    if (ev.button !== undefined && ev.button > 0) return;
-    drag = { x: ev.clientX, y: ev.clientY, id: ev.pointerId, t: performance.now() };
-    hero.classList.add("dragging");
-    try { hero.setPointerCapture(ev.pointerId); } catch (e) {}
-  }
-  function move(ev) {
-    if (!drag || ev.pointerId !== drag.id) return touch(ev);
-    const now = performance.now();
-    const dx = ev.clientX - drag.x, dy = ev.clientY - drag.y;
-    const k = 4.2 / Math.max(canvas.clientWidth, 1);
-    yaw += dx * k;
-    pitch = Math.max(-0.9, Math.min(0.9, pitch + dy * k));
-    spin = dx * k / Math.max((now - drag.t) / 1000, 0.008);
-    drag.x = ev.clientX; drag.y = ev.clientY; drag.t = now;
-    idle = 0;
-    touch(ev);
-    if (still) { place(); render(); }
-  }
-  function release(ev) {
-    if (!drag || ev.pointerId !== drag.id) return;
-    if (performance.now() - drag.t > 80) spin = 0;   // held still before letting go: no throw
-    drag = null;
-    hero.classList.remove("dragging");
-  }
-  if (hero) {
-    hero.addEventListener("pointerdown", ev => { touch(ev); grab(ev); });
-    hero.addEventListener("pointermove", move);
-    hero.addEventListener("pointerup", release);
-    hero.addEventListener("pointercancel", release);
-  }
-  let auto = 0;
-  function place() {
-    const a = auto * 0.16;
-    brain.rotation.y = SIDE + a + 0.35 * Math.sin(2 * a) + yaw;
-    brain.rotation.x = 0.1 + 0.12 * Math.sin(auto * 0.21) + pitch;
-  }
-
-  // ---- framing: to the right of the headline on wide screens, above it on narrow ones
-  function size() {
-    const w = canvas.clientWidth, h = canvas.clientHeight;
-    if (!w || !h) return;
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
-    renderer.setSize(w, h, false);
-    camera.aspect = w / h;
-    const wide = w / h > 1.05;
-    brain.scale.setScalar(wide ? 1.12 : Math.max(0.6, (w / h) * 1.1));
-    camera.setViewOffset(w, h, wide ? -w * 0.2 : 0, wide ? h * 0.12 : h * 0.18, w, h);
-    camera.updateProjectionMatrix();
-  }
-  const render = () => renderer.render(scene, camera);
-  size();
-  window.addEventListener("resize", () => { size(); if (still) render(); });
-
-  if (still) {                         // one settled side view, mid-thought; a touch still lights it
-    for (let i = 0; i < 240; i++) step(1 / 60);
-    place();
-    render();
-    return;
-  }
-  let last = performance.now(), turn = 0;
-  function frame(now) {
-    const dt = Math.min((now - last) / 1000, 0.05);
-    last = now;
-    turn += dt;
-    if (!drag) {
-      yaw += spin * dt;                              // a throw carries on and slows
-      spin *= Math.exp(-dt * 2.5);
-      idle += dt;
-      if (idle > 2.5) auto += dt * Math.min(1, (idle - 2.5) / 2);   // then its own slow turn eases back in
-    }
-    // a slow full turn, lingering on the sides, with a gentle rise and fall
-    place();
-    brain.position.y = 0.04 * Math.sin(turn * 0.33);
-    step(dt);
-    render();
-    requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
-})();
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+<script src="/brain.js" defer></script>
 </body>
 </html>
