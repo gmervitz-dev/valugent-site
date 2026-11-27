@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
 SITE = "https://valugent.ai"
 EMAIL = "hello@valugent.ai"
-UPDATED = "2026-11-27"
+UPDATED = "2026-11-28"
 
 CSS = (SRC / "base.css").read_text() + """
 .status { display: flex; gap: 22px; }
@@ -141,6 +141,9 @@ CSS = (SRC / "base.css").read_text() + """
 .fx .part:nth-child(4) h2 { animation-delay: 2.65s; }
 @keyframes lit { 0%, 32%, 100% { color: var(--ink); text-shadow: none; }
   6% { color: #fff; text-shadow: 0 0 18px rgba(156,196,255,0.95), 0 0 42px rgba(156,196,255,0.5); } }
+/* a heading decoding: its real words are hidden, not changed, under the flickering copy */
+.decoding { position: relative; color: transparent; }
+.decoding::after { content: attr(data-fx); position: absolute; inset: 0; color: var(--ink); }
 /* pages cross-fade into each other */
 @view-transition { navigation: auto; }
 ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.45s; }
@@ -273,23 +276,19 @@ FX_JS = r"""<script>
   onScroll();
   // headings decode into place the first time they come into view
   const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&";
-  function decode(h) {
-    const nodes = [], walk = document.createTreeWalker(h, NodeFilter.SHOW_TEXT);
-    while (walk.nextNode()) nodes.push([walk.currentNode, walk.currentNode.nodeValue]);
-    if (!nodes.length) return;
-    h.setAttribute("aria-label", h.textContent); h.style.minHeight = `${h.offsetHeight}px`;
+  function decode(h) {                // the real words stay in the page; the flicker is drawn over them
+    const text = h.textContent;
     const start = performance.now(), dur = 1900;
     let shown = 0;
+    h.classList.add("decoding");
     (function tick(now) {
       const t = (now - start) / dur;
       if (t < 1 && now - shown < 70) return requestAnimationFrame(tick);   // a steady flicker, not a blur
       shown = now;
-      nodes.forEach(([n, text]) => {
-        n.nodeValue = [...text].map((c, i) => c === " " || t > 0.25 + 0.75 * i / text.length ? c
-          : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]).join("");
-      });
-      if (t < 1) requestAnimationFrame(tick);
-      else { nodes.forEach(([n, text]) => { n.nodeValue = text; }); h.removeAttribute("aria-label"); h.style.minHeight = ""; }
+      if (t >= 1) { h.classList.remove("decoding"); h.removeAttribute("data-fx"); return; }
+      h.dataset.fx = [...text].map((c, i) => c === " " || t > 0.25 + 0.75 * i / text.length ? c
+        : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]).join("");
+      requestAnimationFrame(tick);
     })(start);
   }
   const heads = document.querySelectorAll(".about h2, .principles h2, .faq h2, .page-head h1");
@@ -441,8 +440,8 @@ FAQ_LD = {"@type": "FAQPage", "@id": f"{SITE}/#faq", "mainEntity": [
 
 
 # ------------------------------------------------------------------ home
-HOME_DESC = ("Valugent is an AI agent factory. It turns a plain written definition into a values-driven AI agent that "
-             "acts only within its authority, rests its answers on evidence, and keeps a record of everything it does.")
+HOME_DESC = ("Valugent is an AI agent factory building values-driven AI agents that act only within their authority, "
+             "rest answers on evidence and record every step.")
 HOME = f"""  <section class="hero">
     <canvas id="brain" aria-hidden="true"></canvas>
     <div class="hero-copy">
@@ -501,8 +500,8 @@ HOME = f"""  <section class="hero">
 """
 
 # ------------------------------------------------------------------ how it works
-APPROACH_DESC = ("How the Valugent AI agent factory builds trustworthy AI agents: a written definition, a sealed harness, "
-                 "evidence-based judgement, approval for each exact action, and a ledger of everything the agent does.")
+APPROACH_DESC = ("How Valugent builds trustworthy AI agents: a written definition, a sealed harness, evidence-based checks, "
+                 "approval for each action and a full ledger.")
 STEPS = [
     ("Start with a definition",
      ["Every AI agent begins as a plain written definition, kept as a versioned file. It says what the agent is for, what "
@@ -553,7 +552,7 @@ APPROACH = f"""  <div class="page-head">
 
 # ------------------------------------------------------------------ principles
 PRINCIPLES_DESC = ("The principles behind Valugent's values-driven AI agents: purpose first, approval for each action, "
-                   "evidence not guesses, a record of everything, separate data, and no lock-in to one AI model.")
+                   "evidence not guesses and a record of everything.")
 PRINCIPLES = [
     ("Purpose first", ["An AI agent's purpose and limits are written down before it is given any power. What it may do, "
                        "and what it must never do, are part of the agent, not an afterthought."]),
@@ -582,7 +581,7 @@ PRINCIPLES_HTML = f"""  <div class="page-head">
 """
 
 PAGES = [
-    ("/", "index.html", "Valugent | AI agent factory for values-driven, trustworthy AI agents", HOME_DESC, HOME,
+    ("/", "index.html", "Valugent | AI agent factory for trustworthy AI agents", HOME_DESC, HOME,
      [ORG, {"@type": "WebSite", "@id": f"{SITE}/#site", "name": "Valugent", "url": f"{SITE}/", "publisher": {"@id": f"{SITE}/#org"},
             "inLanguage": "en"}, FAQ_LD], "", True, "1.0"),
     ("/approach/", "approach/index.html", "How the AI agent factory works | Valugent", APPROACH_DESC, APPROACH,
@@ -605,4 +604,28 @@ for path, out, title, desc, body, schema, here, home, prio in PAGES:
                                   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{SITE}{p[0]}</loc><lastmod>{UPDATED}</lastmod><priority>{p[8]}</priority></url>\n" for p in PAGES)
                                   + "</urlset>\n")
+# a plain summary for AI assistants (llms.txt), from the same text as the pages
+faq_md = "\n\n".join(f"### {q}\n\n{a}" for q, a in FAQ)
+steps_md = "\n".join(f"{i}. **{t}.** " + " ".join(ps) for i, (t, ps) in enumerate(STEPS, 1))
+principles_md = "\n".join(f"- **{t}.** " + " ".join(ps) for t, ps in PRINCIPLES)
+(ROOT / "llms.txt").write_text(f"""# Valugent
+
+> {HOME_DESC} Valugent is in development; contact {EMAIL}.
+
+- [Home]({SITE}/): what Valugent is building, and answers to common questions about AI agents
+- [How it works]({SITE}/approach/): how the AI agent factory builds a trustworthy agent, step by step
+- [Principles]({SITE}/principles/): the rules every Valugent agent is built on
+
+## How the AI agent factory works
+
+{steps_md}
+
+## Principles
+
+{principles_md}
+
+## Questions
+
+{faq_md}
+""")
 print("built", [p[1] for p in PAGES])

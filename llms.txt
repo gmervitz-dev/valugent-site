@@ -1,0 +1,56 @@
+# Valugent
+
+> Valugent is an AI agent factory building values-driven AI agents that act only within their authority, rest answers on evidence and record every step. Valugent is in development; contact hello@valugent.ai.
+
+- [Home](https://valugent.ai/): what Valugent is building, and answers to common questions about AI agents
+- [How it works](https://valugent.ai/approach/): how the AI agent factory builds a trustworthy agent, step by step
+- [Principles](https://valugent.ai/principles/): the rules every Valugent agent is built on
+
+## How the AI agent factory works
+
+1. **Start with a definition.** Every AI agent begins as a plain written definition, kept as a versioned file. It says what the agent is for, what it may do, what it must never do, and which actions need a person's approval. The definition holds no personal data, so it can be read, reviewed and changed like any other document. The factory builds the agent from it, the same way every time.
+2. **A sealed harness.** The agent works inside a sealed environment. It can reach only the tools its definition allows, through one gateway that checks each request, and nothing leaves that environment without permission. Logins and keys stay with the factory, never with the agent. The model can be as capable as it likes: the harness decides where it may go.
+3. **Judgement built from evidence.** An agent's answers rest on the documents and checks behind them. Figures are checked against their sources, and an independent review step looks at the answer before it stands. When the evidence is not there, the agent says so instead of guessing. A clear "I cannot confirm this" is worth more than a confident mistake.
+4. **Approval for the exact action.** For anything that matters, an agent proposes and a person decides. An approval is bound to the exact action that was shown, so it cannot be reused for something else.
+5. **A ledger as the flight recorder.** Every step an agent takes is written to a ledger: what it read, what it ran, what it proposed and who approved it. The ledger is built so that a changed or missing entry shows. It is the proof of what the agent actually did, not the agent's own account of it.
+6. **Any model, the same agent.** The factory reaches AI models through a single interface. An agent's definition is not tied to one provider, so it can move between models and keep its limits, checks and record. Models get stronger every few months. The factory is built around evidence and checks rather than around today's model's weaknesses, so a stronger model makes a better agent, not a riskier one.
+
+## Principles
+
+- **Purpose first.** An AI agent's purpose and limits are written down before it is given any power. What it may do, and what it must never do, are part of the agent, not an afterthought.
+- **Approval for each action.** An agent carries out only the exact action a person approved. Approval is never a blank cheque: change the action and it needs approving again.
+- **Evidence, not guesses.** Answers rest on the documents and checks behind them. When the evidence is not there, the agent says it cannot confirm the answer. Refusing is better than guessing.
+- **A record of everything.** Every action is written to a ledger that can be checked later. Trust is earned from the record, not from what the agent says about itself.
+- **Each agent's data kept apart.** Every agent's data and records are kept separate from every other's, and an agent's definition carries no personal data.
+- **Not tied to one model.** An agent's definition belongs to its owner and can move between AI models and providers. No agent should depend on one company's model to keep its values.
+- **Built for stronger models.** AI models get stronger every few months. Valugent is built to work with a stronger model, not against it, so the same limits hold as the power grows.
+
+## Questions
+
+### What is an AI agent factory?
+
+An AI agent factory builds AI agents from a specification instead of by hand. At Valugent, each agent starts as a plain written definition: what it is for, what it may do and what it must never do. The factory turns that definition into a working agent, with the same limits, checks and record every time.
+
+### What makes a Valugent AI agent trustworthy?
+
+Trust comes from what surrounds the model, not from the model alone. Each agent runs in a sealed environment, can use only the tools it is allowed, needs approval for the exact action it takes, and writes every step to a ledger that can be checked later.
+
+### What does values-driven mean for an AI agent?
+
+It means an agent's purpose and limits come first. They are written down before the agent is given any power, and the factory holds the agent to them: it refuses rather than guesses, and it stays inside the authority it was given.
+
+### Which AI models does Valugent work with?
+
+The factory reaches the model through a single interface, so an agent's definition is not tied to one AI model or provider. The same definition is meant to behave the same way on any model, and to keep working as models get stronger.
+
+### What does an AI agent do when it is not sure?
+
+It says so. A Valugent agent rests its answers on the documents and checks behind them. When the evidence is not there, it reports that it cannot confirm the answer instead of guessing.
+
+### Can a Valugent agent act without a person's approval?
+
+Not for actions that matter. An approval is bound to the exact action a person agreed to, so an agent cannot reuse it for anything else, and every approval is recorded.
+
+### Is Valugent available now?
+
+Not yet. Valugent is in development, and the first agents are being built and tested for our own use. To get in touch, write to hello@valugent.ai.

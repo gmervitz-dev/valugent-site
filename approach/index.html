@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How the AI agent factory works | Valugent</title>
-<meta name="description" content="How the Valugent AI agent factory builds trustworthy AI agents: a written definition, a sealed harness, evidence-based judgement, approval for each exact action, and a ledger of everything the agent does.">
+<meta name="description" content="How Valugent builds trustworthy AI agents: a written definition, a sealed harness, evidence-based checks, approval for each action and a full ledger.">
 <link rel="canonical" href="https://valugent.ai/approach/">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#05070b">
@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Valugent">
 <meta property="og:locale" content="en_AU">
 <meta property="og:title" content="How the AI agent factory works | Valugent">
-<meta property="og:description" content="How the Valugent AI agent factory builds trustworthy AI agents: a written definition, a sealed harness, evidence-based judgement, approval for each exact action, and a ledger of everything the agent does.">
+<meta property="og:description" content="How Valugent builds trustworthy AI agents: a written definition, a sealed harness, evidence-based checks, approval for each action and a full ledger.">
 <meta property="og:url" content="https://valugent.ai/approach/">
 <meta property="og:image" content="https://valugent.ai/og.png">
 <meta property="og:image:width" content="1200">
@@ -22,7 +22,7 @@
 <meta property="og:image:alt" content="Valugent: values-driven AI agents">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="How the AI agent factory works | Valugent">
-<meta name="twitter:description" content="How the Valugent AI agent factory builds trustworthy AI agents: a written definition, a sealed harness, evidence-based judgement, approval for each exact action, and a ledger of everything the agent does.">
+<meta name="twitter:description" content="How Valugent builds trustworthy AI agents: a written definition, a sealed harness, evidence-based checks, approval for each action and a full ledger.">
 <meta name="twitter:image" content="https://valugent.ai/og.png">
 <script>matchMedia("(prefers-reduced-motion: reduce)").matches || document.documentElement.classList.add("fx")</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -319,6 +319,9 @@ footer a:hover, footer a:focus-visible { border-color: var(--ink); }
 .fx .part:nth-child(4) h2 { animation-delay: 2.65s; }
 @keyframes lit { 0%, 32%, 100% { color: var(--ink); text-shadow: none; }
   6% { color: #fff; text-shadow: 0 0 18px rgba(156,196,255,0.95), 0 0 42px rgba(156,196,255,0.5); } }
+/* a heading decoding: its real words are hidden, not changed, under the flickering copy */
+.decoding { position: relative; color: transparent; }
+.decoding::after { content: attr(data-fx); position: absolute; inset: 0; color: var(--ink); }
 /* pages cross-fade into each other */
 @view-transition { navigation: auto; }
 ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.45s; }
@@ -450,23 +453,19 @@ main > *, footer { position: relative; z-index: 1; }
   onScroll();
   // headings decode into place the first time they come into view
   const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&";
-  function decode(h) {
-    const nodes = [], walk = document.createTreeWalker(h, NodeFilter.SHOW_TEXT);
-    while (walk.nextNode()) nodes.push([walk.currentNode, walk.currentNode.nodeValue]);
-    if (!nodes.length) return;
-    h.setAttribute("aria-label", h.textContent); h.style.minHeight = `${h.offsetHeight}px`;
+  function decode(h) {                // the real words stay in the page; the flicker is drawn over them
+    const text = h.textContent;
     const start = performance.now(), dur = 1900;
     let shown = 0;
+    h.classList.add("decoding");
     (function tick(now) {
       const t = (now - start) / dur;
       if (t < 1 && now - shown < 70) return requestAnimationFrame(tick);   // a steady flicker, not a blur
       shown = now;
-      nodes.forEach(([n, text]) => {
-        n.nodeValue = [...text].map((c, i) => c === " " || t > 0.25 + 0.75 * i / text.length ? c
-          : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]).join("");
-      });
-      if (t < 1) requestAnimationFrame(tick);
-      else { nodes.forEach(([n, text]) => { n.nodeValue = text; }); h.removeAttribute("aria-label"); h.style.minHeight = ""; }
+      if (t >= 1) { h.classList.remove("decoding"); h.removeAttribute("data-fx"); return; }
+      h.dataset.fx = [...text].map((c, i) => c === " " || t > 0.25 + 0.75 * i / text.length ? c
+        : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]).join("");
+      requestAnimationFrame(tick);
     })(start);
   }
   const heads = document.querySelectorAll(".about h2, .principles h2, .faq h2, .page-head h1");
