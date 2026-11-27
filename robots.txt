@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://valugent.com/sitemap.xml
+Sitemap: https://valugent.ai/sitemap.xml
