@@ -224,7 +224,9 @@
   // ---- touch: the points near the finger or the pointer light up, and send signals outward
   const v = new THREE.Vector3();
   let lastTouch = 0;
+  let hover = null;                    // where the pointer rests over the brain: a soft glow stays with it
   function touch(ev) {
+    if (ev.pointerType === "mouse") { const bx = canvas.getBoundingClientRect(); hover = [ev.clientX - bx.left, ev.clientY - bx.top]; }
     const now = performance.now();
     if (now - lastTouch < 60) return;
     lastTouch = now;
@@ -276,6 +278,17 @@
     hero.addEventListener("pointermove", move);
     hero.addEventListener("pointerup", release);
     hero.addEventListener("pointercancel", release);
+    hero.addEventListener("pointerleave", () => { hover = null; });
+  }
+  function halo() {                    // the points near a resting pointer glow, brightest at its centre
+    if (!hover) return;
+    const w = canvas.clientWidth, h = canvas.clientHeight, reach = Math.max(80, w * 0.09);
+    brain.updateMatrixWorld();
+    for (let i = 0; i < N; i++) {
+      v.fromArray(pts[i]).applyMatrix4(brain.matrixWorld).project(camera);
+      const d = Math.hypot((v.x + 1) / 2 * w - hover[0], (1 - v.y) / 2 * h - hover[1]);
+      if (d < reach) flash[i] = Math.max(flash[i], 0.6 * (1 - d / reach));
+    }
   }
   let auto = 0;
   function place() {
@@ -320,6 +333,7 @@
     // a slow full turn, lingering on the sides, with a gentle rise and fall
     place();
     brain.position.y = 0.04 * Math.sin(turn * 0.33);
+    halo();
     step(dt);
     render();
     requestAnimationFrame(frame);

@@ -84,6 +84,74 @@ CSS = (SRC / "base.css").read_text() + """
   background: #dce9ff; box-shadow: 0 0 6px 1px rgba(156, 196, 255, 0.9); animation: cur-spark 0.7s ease-out forwards; }
 @keyframes cur-spark { to { transform: translate(var(--dx), var(--dy)) scale(0.2); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .has-cursor .cur-dot { animation: none; } }
+/* effects (only when motion is welcome): the headline rises in, sections light up as they come into view, a signal
+   runs along the band, the cards glow where the cursor is, and the brain drifts back as you scroll */
+.progress { position: fixed; inset: 0 0 auto 0; height: 2px; z-index: 50; pointer-events: none; transform-origin: 0 50%;
+  transform: scaleX(var(--sp, 0)); background: linear-gradient(90deg, rgba(156,196,255,0), var(--glow) 40%, #fff);
+  box-shadow: 0 0 12px rgba(156,196,255,0.8); }
+.hero h1 .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.06em; margin-bottom: -0.06em; }
+.hero h1 .w > span { display: inline-block; }
+.shine { background: linear-gradient(100deg, var(--ink) 35%, #cfe2ff 46%, #fff 50%, #cfe2ff 54%, var(--ink) 65%);
+  background-size: 300% 100%; background-position: 100% 0; -webkit-background-clip: text; background-clip: text;
+  color: transparent; }
+.fx .hero h1 .w > span { animation: rise 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: var(--d, 0s); }
+.fx .hero h1 .shine { animation: rise 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) both, shine 7s ease-in-out 1.6s infinite;
+  animation-delay: var(--d, 0s), calc(var(--d, 0s) + 1.6s); }
+@keyframes rise { from { transform: translateY(105%); } }
+@keyframes shine { 0% { background-position: 100% 0; } 30%, 100% { background-position: 0 0; } }
+.fx .hero .lede { animation: fade-up 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.55s both; }
+.fx .hero .cta { animation: fade-up 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.75s both; }
+@keyframes fade-up { from { opacity: 0; transform: translateY(18px); } }
+.fx #brain { transform: scale(calc(1 + var(--hp, 0) * 0.18)); opacity: calc(1 - var(--hp, 0) * 0.75); }
+.fx .hero-copy { transform: translateY(calc(var(--hp, 0) * -70px)); opacity: calc(1 - var(--hp, 0) * 1.1); }
+.btn { position: relative; overflow: hidden; }
+.btn::after { content: ""; position: absolute; inset: 0 auto 0 -60%; width: 40%; pointer-events: none;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.75), transparent); transform: skewX(-20deg); }
+.fx .btn::after { animation: sheen 4.8s ease-in-out 2s infinite; }
+@keyframes sheen { 0% { left: -60%; } 22%, 100% { left: 130%; } }
+.fx .btn { animation: fade-up 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.75s both, halo 3.2s ease-in-out 2s infinite; }
+@keyframes halo { 50% { box-shadow: 0 0 34px rgba(156,196,255,0.4); } }
+.fx .reveal { opacity: 0; transform: translateY(30px); filter: blur(6px);
+  transition: opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.9s;
+  transition-delay: var(--rd, 0s); }
+.fx .reveal.in { opacity: 1; transform: none; filter: none; }
+.band { position: relative; overflow: hidden; }
+.band::before { content: ""; position: absolute; left: 0; top: -1px; height: 2px; width: 30%; pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--glow), #fff, transparent); box-shadow: 0 0 16px var(--glow);
+  transform: translateX(-100%); }
+.fx .band::before { animation: signal 4.5s cubic-bezier(0.5, 0, 0.5, 1) infinite; }
+@keyframes signal { to { transform: translateX(440%); } }
+.part h2 { transition: color 0.3s, text-shadow 0.3s; }
+.part:hover h2 { color: #fff; text-shadow: 0 0 24px rgba(156,196,255,0.6); }
+.principles li, .faq .qa { position: relative; }
+.principles li::before, .faq .qa::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0;
+  transition: opacity 0.35s; background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%),
+  rgba(156,196,255,0.14), transparent 60%); }
+.principles li:hover::before, .faq .qa:hover::before { opacity: 1; }
+.principles li { transition: border-color 0.35s, box-shadow 0.35s; }
+.principles li:hover { border-color: rgba(156,196,255,0.45); box-shadow: inset 0 0 0 1px rgba(156,196,255,0.15); z-index: 1; }
+.principles li h3 { transition: color 0.3s; }
+.principles li:hover h3 { color: #fff; }
+/* the band lights up part by part as the signal passes through it */
+.fx .band::before { animation-timing-function: linear; }
+.fx .part h2 { animation: lit 4.5s linear infinite; }
+.fx .part:nth-child(1) h2 { animation-delay: 0.55s; }
+.fx .part:nth-child(2) h2 { animation-delay: 1.25s; }
+.fx .part:nth-child(3) h2 { animation-delay: 1.95s; }
+.fx .part:nth-child(4) h2 { animation-delay: 2.65s; }
+@keyframes lit { 0%, 32%, 100% { color: var(--ink); text-shadow: none; }
+  6% { color: #fff; text-shadow: 0 0 18px rgba(156,196,255,0.95), 0 0 42px rgba(156,196,255,0.5); } }
+/* pages cross-fade into each other */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.45s; }
+@media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
+/* faint neurons drifting behind the page below the hero */
+.neurons { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+main > *, footer { position: relative; z-index: 1; }
+.status a { position: relative; }
+.status a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 1px; background: var(--glow);
+  transform: scaleX(0); transform-origin: 0 50%; transition: transform 0.3s; }
+.status a:hover::after, .status a:focus-visible::after, .status a[aria-current]::after { transform: scaleX(1); }
 /* the principles grid: five across on wide screens, and no filled gap where a row is short */
 .principles ol { background: none; border: none; gap: 0; }
 .principles li { border: 1px solid var(--line); margin: 0 -1px -1px 0; }
@@ -176,6 +244,101 @@ CURSOR_JS = r"""<script>
 </script>"""
 
 
+FX_JS = r"""<script>
+(() => {
+  // effects: off when someone asks for less motion, and the page reads the same without them
+  if (!document.documentElement.classList.contains("fx")) return;
+  const fine = matchMedia("(pointer: fine)").matches;
+  const els = document.querySelectorAll(
+    "main > section:not(.hero) > *, .principles li, .band .part, .faq .qa, .prose section, .page-head > *, .next > *");
+  els.forEach(el => {
+    el.classList.add("reveal");
+    const sibs = [...el.parentElement.children].filter(c => c.matches(".part, li, .qa"));
+    const i = sibs.indexOf(el);
+    if (i > 0) el.style.setProperty("--rd", `${Math.min(i, 6) * 0.08}s`);
+  });
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+  }), { rootMargin: "0px 0px -8% 0px" });
+  els.forEach(el => io.observe(el));
+  const bar = document.querySelector(".progress"), hero = document.querySelector(".hero");
+  let queued = false;
+  function onScroll() {
+    queued = false;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    if (bar) bar.style.setProperty("--sp", max > 0 ? (scrollY / max).toFixed(4) : 0);
+    if (hero) hero.style.setProperty("--hp", Math.min(1, scrollY / hero.offsetHeight).toFixed(4));
+  }
+  addEventListener("scroll", () => { if (!queued) { queued = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  onScroll();
+  // headings decode into place the first time they come into view
+  const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&";
+  function decode(h) {
+    const nodes = [], walk = document.createTreeWalker(h, NodeFilter.SHOW_TEXT);
+    while (walk.nextNode()) nodes.push([walk.currentNode, walk.currentNode.nodeValue]);
+    if (!nodes.length) return;
+    h.setAttribute("aria-label", h.textContent); h.style.minHeight = `${h.offsetHeight}px`;
+    const start = performance.now(), dur = 900;
+    (function tick(now) {
+      const t = (now - start) / dur;
+      nodes.forEach(([n, text]) => {
+        n.nodeValue = [...text].map((c, i) => c === " " || t > 0.25 + 0.75 * i / text.length ? c
+          : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]).join("");
+      });
+      if (t < 1) requestAnimationFrame(tick);
+      else { nodes.forEach(([n, text]) => { n.nodeValue = text; }); h.removeAttribute("aria-label"); h.style.minHeight = ""; }
+    })(start);
+  }
+  const heads = document.querySelectorAll(".about h2, .principles h2, .faq h2, .prose h2, .page-head h1, .part h2");
+  const hio = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { hio.unobserve(e.target); setTimeout(() => decode(e.target), 150); }
+  }), { rootMargin: "0px 0px -10% 0px" });
+  heads.forEach(h => hio.observe(h));
+  // faint neurons drift behind the page; nearby ones join, and now and then one fires
+  const cv = document.createElement("canvas"), cx = cv.getContext("2d");
+  cv.className = "neurons"; cv.setAttribute("aria-hidden", "true");
+  document.body.prepend(cv);
+  let W = 0, H = 0, dpr = 1, dots = [];
+  function fit() {
+    dpr = Math.min(devicePixelRatio || 1, 1.5); W = innerWidth; H = innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const want = Math.round(Math.min(70, W * H / 22000));
+    while (dots.length < want) dots.push({ x: Math.random() * W, y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.12, vy: (Math.random() - 0.5) * 0.12, r: 0.8 + Math.random() * 1.2, f: 0 });
+    dots.length = want;
+  }
+  fit(); addEventListener("resize", fit);
+  (function drift() {
+    cx.clearRect(0, 0, W, H);
+    if (!hero || scrollY > hero.offsetHeight * 0.4) {
+      for (const d of dots) {
+        d.x = (d.x + d.vx + W) % W; d.y = (d.y + d.vy + H) % H; d.f *= 0.97;
+        if (Math.random() < 0.0012) d.f = 1;
+      }
+      for (let i = 0; i < dots.length; i++) for (let j = i + 1; j < dots.length; j++) {
+        const a = dots[i], b = dots[j], dd = Math.hypot(a.x - b.x, a.y - b.y);
+        if (dd < 140) {
+          cx.strokeStyle = `rgba(156,196,255,${(1 - dd / 140) * (0.07 + 0.3 * Math.max(a.f, b.f))})`;
+          cx.lineWidth = 1; cx.beginPath(); cx.moveTo(a.x, a.y); cx.lineTo(b.x, b.y); cx.stroke();
+        }
+      }
+      for (const d of dots) {
+        cx.fillStyle = `rgba(190,215,255,${0.22 + 0.7 * d.f})`;
+        cx.beginPath(); cx.arc(d.x, d.y, d.r + 1.6 * d.f, 0, Math.PI * 2); cx.fill();
+      }
+    }
+    requestAnimationFrame(drift);
+  })();
+  if (fine) addEventListener("pointermove", e => {           // the cards glow where the cursor is
+    const card = e.target.closest && e.target.closest(".principles li, .faq .qa");
+    if (!card) return;
+    const r = card.getBoundingClientRect();
+    card.style.setProperty("--mx", `${e.clientX - r.left}px`); card.style.setProperty("--my", `${e.clientY - r.top}px`);
+  });
+})();
+</script>"""
+
+
 def page(path, title, desc, body, *, schema, here="", home=False):
     url = f"{SITE}{path}"
     return f"""<!DOCTYPE html>
@@ -204,6 +367,7 @@ def page(path, title, desc, body, *, schema, here="", home=False):
 <meta name="twitter:title" content="{title}">
 <meta name="twitter:description" content="{desc}">
 <meta name="twitter:image" content="{SITE}/og.png">
+<script>matchMedia("(prefers-reduced-motion: reduce)").matches || document.documentElement.classList.add("fx")</script>
 {FONTS}
 {ld(*schema)}
 <style>
@@ -211,6 +375,7 @@ def page(path, title, desc, body, *, schema, here="", home=False):
 </style>
 </head>
 <body{'' if home else ' class="page"'}>
+<div class="progress" aria-hidden="true"></div>
 <header class="bar">
   <a href="/" aria-label="Valugent home">{MARK}</a>
   {nav(here)}
@@ -225,6 +390,7 @@ def page(path, title, desc, body, *, schema, here="", home=False):
   <span>&copy; 2026 Valugent</span>
 </footer>
 {CURSOR_JS}
+{FX_JS}
 {'<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>' + chr(10) + '<script src="/brain.js" defer></script>' if home else ''}
 </body>
 </html>
@@ -277,7 +443,7 @@ HOME_DESC = ("Valugent is an AI agent factory. It turns a plain written definiti
 HOME = f"""  <section class="hero">
     <canvas id="brain" aria-hidden="true"></canvas>
     <div class="hero-copy">
-      <h1>Values-driven<br>AI agents</h1>
+      <h1><span class="w"><span>Values-driven</span></span><br><span class="w"><span class="shine" style="--d: 0.12s">AI</span></span> <span class="w"><span class="shine" style="--d: 0.22s">agents</span></span></h1>
       <p class="lede">Valugent is an AI agent factory. It builds AI agents that act only within the authority they are given, rest their answers on evidence, and keep a record of everything they do.</p>
       <p class="cta"><a class="btn" href="mailto:{EMAIL}?subject=Early%20access">Get early access</a><span>Agents are in development. Leave your email and we will be in touch.</span></p>
     </div>
