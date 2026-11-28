@@ -342,7 +342,7 @@ footer a:hover, footer a:focus-visible { border-color: var(--ink); }
   6% { color: #fff; text-shadow: 0 0 18px rgba(156,196,255,0.95), 0 0 42px rgba(156,196,255,0.5); } }
 /* a heading decoding: its real words are hidden, not changed, under the flickering copy */
 .decoding { position: relative; color: transparent; }
-.decoding::after { content: attr(data-fx); position: absolute; inset: 0; color: var(--ink); }
+.fx-layer span { position: absolute; color: var(--ink); text-align: center; white-space: pre; }
 /* pages cross-fade into each other */
 @view-transition { navigation: auto; }
 ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.45s; }
@@ -467,19 +467,34 @@ main > *, footer { position: relative; z-index: 1; }
   addEventListener("scroll", () => { if (!queued) { queued = true; requestAnimationFrame(onScroll); } }, { passive: true });
   onScroll();
   // headings decode into place the first time they come into view
-  const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&";
-  function decode(h) {                // the real words stay in the page; the flicker is drawn over them
-    const text = h.textContent;
-    const start = performance.now(), dur = 1900;
+  const GLYPHS = "01";                  // machine code: bits resolving into words
+  function decode(h) {                // the real words stay in the page; each bit is drawn exactly over its letter
+    const box = h.getBoundingClientRect(), r = document.createRange(), cells = [];
+    const layer = document.createElement("span");
+    layer.className = "fx-layer"; layer.setAttribute("aria-hidden", "true");
+    const walk = document.createTreeWalker(h, NodeFilter.SHOW_TEXT);
+    while (walk.nextNode()) {
+      const n = walk.currentNode;
+      for (let i = 0; i < n.length; i++) {
+        if (/\s/.test(n.data[i])) continue;
+        r.setStart(n, i); r.setEnd(n, i + 1);
+        const c = r.getBoundingClientRect(), cell = document.createElement("span");
+        cell.style.cssText = `left:${c.left - box.left}px;top:${c.top - box.top}px;width:${c.width}px;` +
+          `height:${c.height}px;line-height:${c.height}px`;
+        layer.append(cell); cells.push([cell, n.data[i]]);
+      }
+    }
+    h.classList.add("decoding"); h.append(layer);
+    const start = performance.now(), dur = 2550;
     let shown = 0;
-    h.classList.add("decoding");
     (function tick(now) {
       const t = (now - start) / dur;
       if (t < 1 && now - shown < 70) return requestAnimationFrame(tick);   // a steady flicker, not a blur
       shown = now;
-      if (t >= 1) { h.classList.remove("decoding"); h.removeAttribute("data-fx"); return; }
-      h.dataset.fx = [...text].map((c, i) => c === " " || t > 0.25 + 0.75 * i / text.length ? c
-        : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]).join("");
+      if (t >= 1) { layer.remove(); h.classList.remove("decoding"); return; }
+      cells.forEach(([cell, ch], i) => {
+        cell.textContent = t > 0.25 + 0.75 * i / cells.length ? ch : GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+      });
       requestAnimationFrame(tick);
     })(start);
   }
