@@ -5,6 +5,7 @@
 - [Home](https://valugent.ai/): what Valugent is building, and answers to common questions about AI agents
 - [How it works](https://valugent.ai/approach/): how the AI agent factory builds a trustworthy agent, step by step
 - [Principles](https://valugent.ai/principles/): the rules every Valugent agent is built on
+- [Why AI agents make things up, and how to stop them acting on it](https://valugent.ai/notes/ai-agent-hallucinations/): A chatbot that makes something up gives you a wrong answer. An agent that makes something up acts on it. Why it happens, and five ways to stop it.
 
 ## How the AI agent factory works
 

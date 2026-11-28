@@ -235,6 +235,23 @@ footer a:hover, footer a:focus-visible { border-color: var(--ink); }
   display: flex; flex-wrap: wrap; gap: 16px 48px; align-items: baseline; justify-content: space-between; }
 .next p { font-family: var(--display); font-weight: 800; font-stretch: 120%; text-transform: uppercase;
   font-size: clamp(22px, 2.6vw, 36px); line-height: 1.05; max-width: 22em; }
+/* notes: one readable column, and a list of articles */
+.article { padding: 0 clamp(16px, 5vw, 64px) clamp(64px, 9vw, 120px); }
+.article .body { max-width: 42em; display: grid; gap: 18px; font-size: clamp(17px, 1.3vw, 19px); color: #c9cfd9; }
+.article .body h2 { font-family: var(--display); font-weight: 800; font-stretch: 120%; text-transform: uppercase;
+  font-size: clamp(20px, 2vw, 26px); line-height: 1.1; letter-spacing: 0.02em; color: var(--ink); margin-top: 28px;
+  text-wrap: balance; }
+.article .body ol, .article .body ul { margin: 0; padding-left: 1.2em; display: grid; gap: 10px; }
+.article .body strong { color: var(--ink); }
+.byline { font-family: var(--display); font-stretch: 110%; text-transform: uppercase; letter-spacing: 0.2em; font-size: 12px;
+  color: var(--dim); }
+.notes-list { padding: 0 clamp(16px, 5vw, 64px) clamp(64px, 9vw, 120px); display: grid; }
+.notes-list a { display: grid; gap: 10px; padding: clamp(24px, 3vw, 36px) 0; border-top: 1px solid var(--line);
+  text-decoration: none; max-width: 52em; }
+.notes-list h2 { font-family: var(--display); font-weight: 800; font-stretch: 120%; text-transform: uppercase;
+  font-size: clamp(22px, 2.4vw, 32px); line-height: 1.05; transition: color 0.3s; text-wrap: balance; }
+.notes-list a:hover h2, .notes-list a:focus-visible h2 { color: var(--glow); }
+.notes-list p { color: var(--dim); }
 /* the cursor: a small node of light with a ring that follows it (mouse and trackpad only) */
 .cur-dot, .cur-ring { position: fixed; left: 0; top: 0; pointer-events: none; z-index: 9999; border-radius: 50%;
   opacity: 0; transition: opacity 0.2s; will-change: transform; }
@@ -358,7 +375,7 @@ main > *, footer { position: relative; z-index: 1; }
 <div class="progress" aria-hidden="true"></div>
 <header class="bar">
   <a href="/" aria-label="Valugent home"><svg class="mark" viewBox="-4 -4 1072 68" role="img" aria-label="Valugent"><g fill="none" stroke="currentColor" stroke-width="13" stroke-linejoin="miter" stroke-miterlimit="10"><path transform="translate(0 0)" d="M2,2 L50,58 L98,2"/><path transform="translate(130 0)" d="M2,58 L50,2 L98,58"/><path transform="translate(260 0)" d="M7,0 V53 H100"/><path transform="translate(390 0)" d="M7,0 V36 Q7,53 24,53 H76 Q93,53 93,36 V0"/><path transform="translate(520 0)" d="M100,7 H24 Q7,7 7,24 V36 Q7,53 24,53 H76 Q93,53 93,36 V30 H58"/><path transform="translate(650 0)" d="M100,7 H7 V53 H100 M7,30 H78"/><path transform="translate(780 0)" d="M7,60 V9 L93,51 V0"/><path transform="translate(910 0)" d="M0,7 H100 M50,7 V60"/></g><text x="1026" y="20" fill="currentColor" font-family="Helvetica, Arial, sans-serif" font-size="19" font-weight="700" letter-spacing="1" opacity="0.8" aria-hidden="true">TM</text></svg></a>
-  <nav class="status" aria-label="Main"><a href="/approach/">How it works</a><a href="/principles/" aria-current="page">Principles</a><a href="/#faq">FAQ</a></nav>
+  <nav class="status" aria-label="Main"><a href="/approach/">How it works</a><a href="/principles/" aria-current="page">Principles</a><a href="/notes/">Notes</a><a href="/#faq">FAQ</a></nav>
 </header>
 <main>
   <div class="page-head">
@@ -381,7 +398,7 @@ main > *, footer { position: relative; z-index: 1; }
 <footer>
   <span><strong>Valugent</strong> &middot; AI agent factory &middot; in development</span>
   <span>Contact <a href="mailto:hello@valugent.ai">hello@valugent.ai</a></span>
-  <span><a href="/approach/">How it works</a> &nbsp; <a href="/principles/">Principles</a></span>
+  <span><a href="/approach/">How it works</a> &nbsp; <a href="/principles/">Principles</a> &nbsp; <a href="/notes/">Notes</a></span>
   <span>&copy; 2026 Valugent</span>
 </footer>
 <script>

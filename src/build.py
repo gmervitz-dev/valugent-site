@@ -53,6 +53,23 @@ CSS = (SRC / "base.css").read_text() + """
   display: flex; flex-wrap: wrap; gap: 16px 48px; align-items: baseline; justify-content: space-between; }
 .next p { font-family: var(--display); font-weight: 800; font-stretch: 120%; text-transform: uppercase;
   font-size: clamp(22px, 2.6vw, 36px); line-height: 1.05; max-width: 22em; }
+/* notes: one readable column, and a list of articles */
+.article { padding: 0 clamp(16px, 5vw, 64px) clamp(64px, 9vw, 120px); }
+.article .body { max-width: 42em; display: grid; gap: 18px; font-size: clamp(17px, 1.3vw, 19px); color: #c9cfd9; }
+.article .body h2 { font-family: var(--display); font-weight: 800; font-stretch: 120%; text-transform: uppercase;
+  font-size: clamp(20px, 2vw, 26px); line-height: 1.1; letter-spacing: 0.02em; color: var(--ink); margin-top: 28px;
+  text-wrap: balance; }
+.article .body ol, .article .body ul { margin: 0; padding-left: 1.2em; display: grid; gap: 10px; }
+.article .body strong { color: var(--ink); }
+.byline { font-family: var(--display); font-stretch: 110%; text-transform: uppercase; letter-spacing: 0.2em; font-size: 12px;
+  color: var(--dim); }
+.notes-list { padding: 0 clamp(16px, 5vw, 64px) clamp(64px, 9vw, 120px); display: grid; }
+.notes-list a { display: grid; gap: 10px; padding: clamp(24px, 3vw, 36px) 0; border-top: 1px solid var(--line);
+  text-decoration: none; max-width: 52em; }
+.notes-list h2 { font-family: var(--display); font-weight: 800; font-stretch: 120%; text-transform: uppercase;
+  font-size: clamp(22px, 2.4vw, 32px); line-height: 1.05; transition: color 0.3s; text-wrap: balance; }
+.notes-list a:hover h2, .notes-list a:focus-visible h2 { color: var(--glow); }
+.notes-list p { color: var(--dim); }
 /* the cursor: a small node of light with a ring that follows it (mouse and trackpad only) */
 .cur-dot, .cur-ring { position: fixed; left: 0; top: 0; pointer-events: none; z-index: 9999; border-radius: 50%;
   opacity: 0; transition: opacity 0.2s; will-change: transform; }
@@ -195,7 +212,7 @@ def crumbs(name, path):
 
 
 def nav(here):
-    links = [("/approach/", "How it works"), ("/principles/", "Principles"), ("/#faq", "FAQ")]
+    links = [("/approach/", "How it works"), ("/principles/", "Principles"), ("/notes/", "Notes"), ("/#faq", "FAQ")]
     return ('<nav class="status" aria-label="Main">' + "".join(
         f'<a href="{h}"{" aria-current=\"page\"" if h == here else ""}>{t}</a>' for h, t in links) + "</nav>")
 
@@ -389,7 +406,7 @@ def page(path, title, desc, body, *, schema, here="", home=False):
 <footer>
   <span><strong>Valugent</strong> &middot; AI agent factory &middot; in development</span>
   <span>Contact <a href="mailto:{EMAIL}">{EMAIL}</a></span>
-  <span><a href="/approach/">How it works</a> &nbsp; <a href="/principles/">Principles</a></span>
+  <span><a href="/approach/">How it works</a> &nbsp; <a href="/principles/">Principles</a> &nbsp; <a href="/notes/">Notes</a></span>
   <span>&copy; 2026 Valugent</span>
 </footer>
 {CURSOR_JS}
@@ -596,6 +613,130 @@ PAGES = [
      "/principles/", False, "0.8"),
 ]
 
+# ------------------------------------------------------------------ notes (articles, signed Valugent)
+def article_html(sections):
+    out = []
+    for head, parts in sections:
+        if head:
+            out.append(f"<h2>{head}</h2>")
+        out += parts
+    return "\n      ".join(out)
+
+
+NOTES = [{
+    "slug": "ai-agent-hallucinations",
+    "date": "2026-11-28",
+    "title": "Why AI agents make things up, and how to stop them acting on it",
+    "desc": "AI agents hallucinate because models predict likely answers, not checked ones. Five ways to stop an agent "
+            "acting on a made-up answer.",
+    "summary": "A chatbot that makes something up gives you a wrong answer. An agent that makes something up acts on it. "
+               "Why it happens, and five ways to stop it.",
+    "sections": [
+        (None, [
+            "<p>A chatbot that makes something up gives you a wrong answer. You can spot it, ignore it, or ask again. An AI "
+            "agent that makes something up is different: it acts on it. It files the report, sends the email, approves the "
+            "invoice or moves the money. The mistake stops being words on a screen and becomes something that happened.</p>",
+            "<p>That is why hallucination is the single biggest question about AI agents. This note explains why it "
+            "happens, why bigger models do not make it go away, and five practical ways to stop an agent acting on an "
+            "answer it made up.</p>"]),
+        ("What a hallucination is", [
+            "<p>An AI model writes the answer that looks most likely, given everything it has seen. Most of the time the "
+            "most likely answer is also the right one. Sometimes it is not: a figure that looks right, a clause that sounds "
+            "like it belongs in the contract, a date that fits the pattern. The model writes it with the same confidence "
+            "as everything else, because confidence is a matter of style, not of checking.</p>",
+            "<p>A hallucination is not a lie. The model is not hiding anything. It simply has no built-in sense of the "
+            "difference between \"I read this\" and \"this seems likely\".</p>"]),
+        ("Why bigger models do not fix it", [
+            "<p>Each new generation of models makes fewer of these mistakes, and that matters. But fewer is not none, and "
+            "two things work against you. First, a stronger model is trusted with bigger tasks, so each remaining mistake "
+            "costs more. Second, a stronger model is more convincing when it is wrong: the made-up figure comes with a "
+            "neat explanation.</p>",
+            "<p>So the useful question is not \"which model never hallucinates?\" None does. It is \"what stops an agent "
+            "from acting on a hallucination?\" That is a question about what surrounds the model.</p>"]),
+        ("Five ways to stop an agent acting on a made-up answer", [
+            "<ol>"
+            "<li><strong>Every claim points to its source.</strong> An answer must say which document, page or record each "
+            "finding came from. A claim with no source behind it is not accepted, however good it sounds. This one rule "
+            "removes most made-up answers, because there is nothing for them to point to.</li>"
+            "<li><strong>Figures are checked by code, not by the model.</strong> If an answer says the invoices total "
+            "$48,200, a few lines of ordinary code add up the invoices and compare. Models are poor at arithmetic and good "
+            "at sounding sure; code is the opposite.</li>"
+            "<li><strong>A second, independent look.</strong> A separate review step reads the answer against the same "
+            "evidence before it stands. It works best when the reviewer cannot simply agree, and must name what it "
+            "checked.</li>"
+            "<li><strong>\"I cannot confirm this\" is a good answer.</strong> Most models are trained to be helpful, which "
+            "pushes them to answer anyway. An agent should be built the other way round: when the evidence is missing, "
+            "it says so, and that counts as success, not failure. A clear refusal is worth more than a confident "
+            "mistake.</li>"
+            "<li><strong>Approval for the exact action, and a record of it.</strong> For anything that matters, the agent "
+            "proposes and a person decides, and the approval covers that exact action and nothing else. Every step is "
+            "written to a record that can be checked later, so when something does go wrong, you can see exactly "
+            "what and why.</li>"
+            "</ol>"]),
+        ("What to ask before you trust an AI agent", [
+            "<p>If you are choosing an AI agent for real work, these questions cut through most of the marketing:</p>",
+            "<ul>"
+            "<li>When the agent states a fact, can it show where it came from?</li>"
+            "<li>Who checks the figures: the model, or something independent of it?</li>"
+            "<li>What does the agent do when it is not sure? Ask to see it say so.</li>"
+            "<li>Can it take an action nobody approved?</li>"
+            "<li>If something goes wrong, is there a record of what it actually did, not its own account of it?</li>"
+            "</ul>",
+            "<p>An agent that cannot answer these well may still be impressive. It is not yet one you should let act on "
+            "your behalf.</p>"]),
+        ("How Valugent approaches it", [
+            "<p>Valugent is an AI agent factory. Every agent it builds starts from a written definition of what it may do "
+            "and must never do, and the factory surrounds the model with the checks above: answers resting on evidence, "
+            "independent checks, a rule to refuse rather than guess, approval for each exact action, and a ledger of "
+            "everything the agent does. You can read more about <a href=\"/approach/\">how the factory works</a> and "
+            "<a href=\"/principles/\">the principles behind it</a>.</p>"]),
+    ],
+}]
+
+
+def note_page(n):
+    date = n["date"]
+    nice = f"{int(date[8:])} " + ["January", "February", "March", "April", "May", "June", "July", "August", "September",
+                                   "October", "November", "December"][int(date[5:7]) - 1] + f" {date[:4]}"
+    body = f"""  <div class="page-head">
+    <p class="crumbs"><a href="/">Valugent</a> / <a href="/notes/">Notes</a></p>
+    <h1>{n["title"]}</h1>
+    <p class="byline">Valugent &middot; <time datetime="{date}">{nice}</time></p>
+  </div>
+  <article class="article">
+    <div class="body">
+      {article_html(n["sections"])}
+    </div>
+  </article>
+  <div class="next"><p>More from Valugent</p><a class="more" href="/notes/">All notes</a></div>
+"""
+    schema = [ORG, {"@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Valugent", "item": f"{SITE}/"},
+        {"@type": "ListItem", "position": 2, "name": "Notes", "item": f"{SITE}/notes/"},
+        {"@type": "ListItem", "position": 3, "name": n["title"], "item": f"{SITE}/notes/{n['slug']}/"}]},
+        {"@type": "Article", "headline": n["title"], "description": n["desc"], "datePublished": date,
+         "dateModified": date, "url": f"{SITE}/notes/{n['slug']}/", "image": f"{SITE}/og.png",
+         "author": {"@id": f"{SITE}/#org"}, "publisher": {"@id": f"{SITE}/#org"},
+         "mainEntityOfPage": f"{SITE}/notes/{n['slug']}/", "inLanguage": "en"}]
+    return (f"/notes/{n['slug']}/", f"notes/{n['slug']}/index.html", f"{n['title']} | Valugent", n["desc"], body,
+            schema, "/notes/", False, "0.7")
+
+
+NOTES_DESC = "Notes from Valugent on building trustworthy AI agents: hallucinations, evidence, approvals and records."
+NOTES_HTML = """  <div class="page-head">
+    <p class="crumbs"><a href="/">Valugent</a> / Notes</p>
+    <h1>Notes on trustworthy AI agents</h1>
+    <p class="lede">Plain answers to the questions that decide whether an AI agent can be trusted with real work.</p>
+  </div>
+  <div class="notes-list">
+""" + "".join(f'    <a href="/notes/{n["slug"]}/"><p class="byline">{n["date"]}</p><h2>{n["title"]}</h2><p>{n["summary"]}</p></a>\n'
+              for n in NOTES) + "  </div>\n"
+PAGES.append(("/notes/", "notes/index.html", "Notes on trustworthy AI agents | Valugent", NOTES_DESC, NOTES_HTML,
+              [ORG, crumbs("Notes", "/notes/"), {"@type": "CollectionPage", "name": "Notes on trustworthy AI agents",
+                                                 "url": f"{SITE}/notes/", "about": {"@id": f"{SITE}/#org"}}],
+              "/notes/", False, "0.7"))
+PAGES += [note_page(n) for n in NOTES]
+
 for path, out, title, desc, body, schema, here, home, prio in PAGES:
     f = ROOT / out
     f.parent.mkdir(parents=True, exist_ok=True)
@@ -616,7 +757,7 @@ principles_md = "\n".join(f"- **{t}.** " + " ".join(ps) for t, ps in PRINCIPLES)
 - [Home]({SITE}/): what Valugent is building, and answers to common questions about AI agents
 - [How it works]({SITE}/approach/): how the AI agent factory builds a trustworthy agent, step by step
 - [Principles]({SITE}/principles/): the rules every Valugent agent is built on
-
+""" + "".join(f"- [{n['title']}]({SITE}/notes/{n['slug']}/): {n['summary']}\n" for n in NOTES) + f"""
 ## How the AI agent factory works
 
 {steps_md}
